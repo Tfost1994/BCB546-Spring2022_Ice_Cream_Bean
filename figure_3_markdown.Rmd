@@ -1,0 +1,77 @@
+---
+title: "figure_4"
+author: "Elizabeth McMurchie"
+date: '2022-04-13'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Read in necessary libraries
+```{r}
+library(tidyverse)
+library(readxl)
+library(dplyr)
+library(data.table)
+library(janitor)
+library(tibble)
+```
+
+# Data wrangling
+```{r}
+wheat <- read_excel("data_files/Supplemental_file_5.xls", sheet = 2)
+names(wheat) <- NULL # do not include top header/label row
+wheat <- data.frame(lapply(wheat, gsub, pattern = " ", replacement = "_"))
+wheat <- data.frame(lapply(wheat, gsub, pattern = "-", replacement = "_"))
+wheat <- data.frame(lapply(wheat, gsub, pattern = ",", replacement = ""))
+wheat <- wheat %>%
+  as.data.frame() %>%
+  row_to_names(row_number = 1)
+colnames(wheat)[1] <- "gene"
+view(wheat)
+
+barley <- read_excel("data_files/Supplemental_file_5.xls", sheet = 3)
+names(barley) <- NULL # do not include top header/label row
+barley <- data.frame(lapply(barley, gsub, pattern = " ", replacement = "_"))
+barley <- data.frame(lapply(barley, gsub, pattern = ",", replacement = ""))
+barley <- barley %>%
+  as.data.frame() %>%
+  row_to_names(row_number = 1)
+colnames(barley)[1] <- "gene"
+colnames(barley)[2] <- "germinating_seed_coleoptile"
+colnames(barley)[3] <- "germinating_seed_root"
+colnames(barley)[12] <- "3_5_DAP_caryopsis"
+
+barley <- barley %>%
+  select(-"10_DAP_caryopsis", -"16_DAP_caryopsis")
+view(barley)
+
+
+#barley <- barley[-1,] # remove header row for ages of plant parts
+#view(barley)
+
+grass <- rbind(wheat, barley) %>%
+  pivot_longer(!gene, names_to = "age", values_to = "expression")
+view(grass)
+
+```
+#Figure 3a
+```{r}
+grass4a <- grass %>%
+  filter(gene %in% c("Traes_5BL_E6535628C", "MLOC_44160", "MLOC_35818")) %>%
+  mutate(age = fct_relevel(age, c("germinating_seed_coleoptile", "germinating_seed_root",
+                                  "germinating_seed_embryo", "seedling_root", "seedling_crown",
+                                  "seedling_leaf", "immature_inflorescence", "floral_bracts_before_anthesis",
+                                  "pistil_before_anthesis", "anthers_before_anthesis", "3_5_DAP_caryopsis",
+                                  "22_DAP_embryo", "22_DAP_endosperm")))
+
+view(grass4a)
+
+fig4a <- ggplot(data = grass4a, aes(x = age, y = expression, group = gene)) +
+  geom_line(aes(color = gene)) +
+  geom_point(aes(color = gene))
+fig4a
+
+```
+
