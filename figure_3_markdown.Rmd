@@ -58,7 +58,7 @@ grass <- rbind(wheat, barley) %>%
 str(grass)
 
 ```
-#Figure 3a
+# Figure 4a
 ```{r}
 grass4a <- grass %>%
   filter(Gene %in% c("Traes_5BL_E6535628C", "MLOC_44160", "MLOC_35818")) %>%
@@ -70,16 +70,65 @@ grass4a <- grass %>%
 
 view(grass4a)
 
-
 fig4a <- ggplot(data = grass4a, aes(x = tissue, y = expression, group = Gene)) +
   geom_line(aes(color = Gene)) +
-  geom_point(aes(color = Gene)) +
-  xlab("Tissue type") +
+  scale_color_manual(values = c("#2FBE49", "#FF3333", "#6699FF")) +
+  geom_point(aes(color = Gene, shape = Gene), size = 3) +
+  scale_shape_manual(values = c(17, 15, 18)) +
   ylab("Log2 expression value") +
-  scale_x_discrete("Tissue type", labels = c("Germinating seed, coleoptile", "Germinating seed, root", "Germinating seed, embryo", "Seedling, root", "Seedling, crown", "Seedling, leaf", "Immature inflorescence", "Floral bracts, before anthesis", "Pistil, before anthesis", "Anthers, before anthesis", "3-5 DAP caryopsis", "22 DAP embryo", "22 DAP endosperm")) +
-  scale_y_continuous(limits = c(4, 10)) +
-  theme(axis.text.x = element_text(angle = 90))
+  scale_x_discrete("", labels = c("Germinating seed, coleoptile", "Germinating seed, root", "Germinating seed, embryo", "Seedling, root", "Seedling, crown", "Seedling, leaf", "Immature inflorescence", "Floral bracts, before anthesis", "Pistil, before anthesis", "Anthers, before anthesis", "3-5 DAP caryopsis", "22 DAP embryo", "22 DAP endosperm")) +
+  scale_y_continuous(limits = c(4, 10), breaks = c(4:10)) +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank(), axis.text.x = element_text(angle = 90))
 fig4a
 
+```
+# Figure 4b
+```{r}
+grass4b <- grass %>%
+  filter(Gene %in% c("Traes_3B_2A454DB62", "Traes_3B_C8DBBCD0E", "Traes_7AS_EBD5F1F54", "MLOC_68576")) %>%
+  mutate(tissue = fct_relevel(tissue, c("germinating_seed_coleoptile", "germinating_seed_root",
+                                  "germinating_seed_embryo", "seedling_root", "seedling_crown",
+                                  "seedling_leaf", "immature_inflorescence", "floral_bracts_before_anthesis",
+                                  "pistil_before_anthesis", "anthers_before_anthesis", "3_5_DAP_caryopsis",
+                                  "22_DAP_embryo", "22_DAP_endosperm")))
+
+view(grass4b)
+
+fig4b <- ggplot(data = grass4b, aes(x = tissue, y = expression, group = Gene)) +
+  geom_line(aes(color = Gene)) +
+  scale_color_manual(values = c("#9E5CF8", "#6699FF", "#FF3333", "#2FBE49")) +
+  geom_point(aes(color = Gene, shape = Gene), size = 3) +
+  scale_shape_manual(values = c(3, 18, 15, 17)) +
+  ylab("Log2 expression value") +
+  scale_x_discrete("", labels = c("Germinating seed, coleoptile", "Germinating seed, root", "Germinating seed, embryo", "Seedling, root", "Seedling, crown", "Seedling, leaf", "Immature inflorescence", "Floral bracts, before anthesis", "Pistil, before anthesis", "Anthers, before anthesis", "3-5 DAP caryopsis", "22 DAP embryo", "22 DAP endosperm")) +
+  scale_y_continuous(limits = c(4, 14), breaks = c(4:14)) +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank(), axis.text.x = element_text(angle = 90))
+fig4b
+```
+# Figure 4c
+```{r}
+grass4c <- grass %>%
+  filter(Gene %in% c("Traes_2BL_E0978B1BC", "Traes_7DL_CAF83263E", "Traes_2DL_71F120931", "MLOC_53973")) %>%
+  mutate(tissue = fct_relevel(tissue, c("germinating_seed_coleoptile", "germinating_seed_root",
+                                  "germinating_seed_embryo", "seedling_root", "seedling_crown",
+                                  "seedling_leaf", "immature_inflorescence", "floral_bracts_before_anthesis",
+                                  "pistil_before_anthesis", "anthers_before_anthesis", "3_5_DAP_caryopsis",
+                                  "22_DAP_embryo", "22_DAP_endosperm")))
+
+view(grass4c)
+
+fig4c <- ggplot(data = grass4c, aes(x = tissue, y = expression, group = Gene)) +
+  geom_line(aes(color = Gene)) +
+  scale_color_manual(values = c("#9E5CF8", "#6699FF", "#2FBE49", "#FF3333")) +
+  geom_point(aes(color = Gene, shape = Gene), size = 3) +
+  scale_shape_manual(values = c(3, 18, 17, 15)) +
+  ylab("Log2 expression value") +
+  scale_x_discrete("", labels = c("Germinating seed, coleoptile", "Germinating seed, root", "Germinating seed, embryo", "Seedling, root", "Seedling, crown", "Seedling, leaf", "Immature inflorescence", "Floral bracts, before anthesis", "Pistil, before anthesis", "Anthers, before anthesis", "3-5 DAP caryopsis", "22 DAP embryo", "22 DAP endosperm")) +
+  scale_y_continuous(limits = c(3, 10), breaks = c(3:10)) +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank(), axis.text.x = element_text(angle = 90))
+fig4c
 ```
 
