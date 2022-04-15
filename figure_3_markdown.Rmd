@@ -28,7 +28,7 @@ wheat <- data.frame(lapply(wheat, gsub, pattern = ",", replacement = ""))
 wheat <- wheat %>%
   as.data.frame() %>%
   row_to_names(row_number = 1)
-colnames(wheat)[1] <- "gene"
+colnames(wheat)[1] <- "Gene"
 view(wheat)
 
 barley <- read_excel("data_files/Supplemental_file_5.xls", sheet = 3)
@@ -38,7 +38,7 @@ barley <- data.frame(lapply(barley, gsub, pattern = ",", replacement = ""))
 barley <- barley %>%
   as.data.frame() %>%
   row_to_names(row_number = 1)
-colnames(barley)[1] <- "gene"
+colnames(barley)[1] <- "Gene"
 colnames(barley)[2] <- "germinating_seed_coleoptile"
 colnames(barley)[3] <- "germinating_seed_root"
 colnames(barley)[12] <- "3_5_DAP_caryopsis"
@@ -52,15 +52,17 @@ view(barley)
 #view(barley)
 
 grass <- rbind(wheat, barley) %>%
-  pivot_longer(!gene, names_to = "age", values_to = "expression")
-view(grass)
+  pivot_longer(!Gene, names_to = "tissue", values_to = "expression") %>%
+  mutate(expression = as.numeric(expression)) %>%
+  mutate(tissue = as.factor(tissue))
+str(grass)
 
 ```
 #Figure 3a
 ```{r}
 grass4a <- grass %>%
-  filter(gene %in% c("Traes_5BL_E6535628C", "MLOC_44160", "MLOC_35818")) %>%
-  mutate(age = fct_relevel(age, c("germinating_seed_coleoptile", "germinating_seed_root",
+  filter(Gene %in% c("Traes_5BL_E6535628C", "MLOC_44160", "MLOC_35818")) %>%
+  mutate(tissue = fct_relevel(tissue, c("germinating_seed_coleoptile", "germinating_seed_root",
                                   "germinating_seed_embryo", "seedling_root", "seedling_crown",
                                   "seedling_leaf", "immature_inflorescence", "floral_bracts_before_anthesis",
                                   "pistil_before_anthesis", "anthers_before_anthesis", "3_5_DAP_caryopsis",
@@ -68,9 +70,15 @@ grass4a <- grass %>%
 
 view(grass4a)
 
-fig4a <- ggplot(data = grass4a, aes(x = age, y = expression, group = gene)) +
-  geom_line(aes(color = gene)) +
-  geom_point(aes(color = gene))
+
+fig4a <- ggplot(data = grass4a, aes(x = tissue, y = expression, group = Gene)) +
+  geom_line(aes(color = Gene)) +
+  geom_point(aes(color = Gene)) +
+  xlab("Tissue type") +
+  ylab("Log2 expression value") +
+  scale_x_discrete("Tissue type", labels = c("Germinating seed, coleoptile", "Germinating seed, root", "Germinating seed, embryo", "Seedling, root", "Seedling, crown", "Seedling, leaf", "Immature inflorescence", "Floral bracts, before anthesis", "Pistil, before anthesis", "Anthers, before anthesis", "3-5 DAP caryopsis", "22 DAP embryo", "22 DAP endosperm")) +
+  scale_y_continuous(limits = c(4, 10)) +
+  theme(axis.text.x = element_text(angle = 90))
 fig4a
 
 ```
