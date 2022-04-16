@@ -78,8 +78,8 @@ fig4a <- ggplot(data = grass4a, aes(x = tissue, y = expression, group = Gene)) +
   ylab("Log2 expression value") +
   scale_x_discrete("", labels = c("Germinating seed, coleoptile", "Germinating seed, root", "Germinating seed, embryo", "Seedling, root", "Seedling, crown", "Seedling, leaf", "Immature inflorescence", "Floral bracts, before anthesis", "Pistil, before anthesis", "Anthers, before anthesis", "3-5 DAP caryopsis", "22 DAP embryo", "22 DAP endosperm")) +
   scale_y_continuous(limits = c(4, 10), breaks = c(4:10)) +
-  theme_bw() +
-  theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank(), axis.text.x = element_text(angle = 90))
+  theme_classic() +
+  theme(panel.grid.major.y = element_line(color = "gray", linetype = 2), axis.text.x = element_text(angle = 90))
 fig4a
 
 ```
@@ -103,8 +103,8 @@ fig4b <- ggplot(data = grass4b, aes(x = tissue, y = expression, group = Gene)) +
   ylab("Log2 expression value") +
   scale_x_discrete("", labels = c("Germinating seed, coleoptile", "Germinating seed, root", "Germinating seed, embryo", "Seedling, root", "Seedling, crown", "Seedling, leaf", "Immature inflorescence", "Floral bracts, before anthesis", "Pistil, before anthesis", "Anthers, before anthesis", "3-5 DAP caryopsis", "22 DAP embryo", "22 DAP endosperm")) +
   scale_y_continuous(limits = c(4, 14), breaks = c(4:14)) +
-  theme_bw() +
-  theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank(), axis.text.x = element_text(angle = 90))
+  theme_classic() +
+  theme(panel.grid.major.y = element_line(color = "gray", linetype = 2), axis.text.x = element_text(angle = 90))
 fig4b
 ```
 # Figure 4c
@@ -127,8 +127,8 @@ fig4c <- ggplot(data = grass4c, aes(x = tissue, y = expression, group = Gene)) +
   ylab("Log2 expression value") +
   scale_x_discrete("", labels = c("Germinating seed, coleoptile", "Germinating seed, root", "Germinating seed, embryo", "Seedling, root", "Seedling, crown", "Seedling, leaf", "Immature inflorescence", "Floral bracts, before anthesis", "Pistil, before anthesis", "Anthers, before anthesis", "3-5 DAP caryopsis", "22 DAP embryo", "22 DAP endosperm")) +
   scale_y_continuous(limits = c(3, 10), breaks = c(3:10)) +
-  theme_bw() +
-  theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank(), axis.text.x = element_text(angle = 90))
+  theme_classic() +
+  theme(panel.grid.major.y = element_line(color = "gray", linetype = 2), axis.text.x = element_text(angle = 90))
 fig4c
 ```
 # Figure 4d
@@ -151,8 +151,8 @@ fig4d <- ggplot(data = grass4d, aes(x = tissue, y = expression, group = Gene)) +
   ylab("Log2 expression value") +
   scale_x_discrete("", labels = c("Germinating seed, coleoptile", "Germinating seed, root", "Germinating seed, embryo", "Seedling, root", "Seedling, crown", "Seedling, leaf", "Immature inflorescence", "Floral bracts, before anthesis", "Pistil, before anthesis", "Anthers, before anthesis", "3-5 DAP caryopsis", "22 DAP embryo", "22 DAP endosperm")) +
   scale_y_continuous(limits = c(2, 11), breaks = c(2:11)) +
-  theme_bw() +
-  theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank(), axis.text.x = element_text(angle = 90))
+  theme_classic() +
+  theme(panel.grid.major.y = element_line(color = "gray", linetype = 2), axis.text.x = element_text(angle = 90))
 fig4d
 ```
 
@@ -176,8 +176,8 @@ fig4e <- ggplot(data = grass4e, aes(x = tissue, y = expression, group = Gene)) +
   ylab("Log2 expression value") +
   scale_x_discrete("", labels = c("Germinating seed, coleoptile", "Germinating seed, root", "Germinating seed, embryo", "Seedling, root", "Seedling, crown", "Seedling, leaf", "Immature inflorescence", "Floral bracts, before anthesis", "Pistil, before anthesis", "Anthers, before anthesis", "3-5 DAP caryopsis", "22 DAP embryo", "22 DAP endosperm")) +
   scale_y_continuous(limits = c(6, 11), breaks = c(6:11)) +
-  theme_bw() +
-  theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank(), axis.text.x = element_text(angle = 90))
+  theme_classic() +
+  theme(panel.grid.major.y = element_line(color = "gray", linetype = 2), axis.text.x = element_text(angle = 90))
 fig4e
 ```
 # Figure 4f
@@ -200,8 +200,8 @@ fig4f <- ggplot(data = grass4f, aes(x = tissue, y = expression, group = Gene)) +
   ylab("Log2 expression value") +
   scale_x_discrete("", labels = c("Germinating seed, coleoptile", "Germinating seed, root", "Germinating seed, embryo", "Seedling, root", "Seedling, crown", "Seedling, leaf", "Immature inflorescence", "Floral bracts, before anthesis", "Pistil, before anthesis", "Anthers, before anthesis", "3-5 DAP caryopsis", "22 DAP embryo", "22 DAP endosperm")) +
   scale_y_continuous(limits = c(3, 11), breaks = c(3:11)) +
-  theme_bw() +
-  theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank(), axis.text.x = element_text(angle = 90))
+  theme_classic() +
+  theme(panel.grid.major.y = element_line(color = "gray", linetype = 2), axis.text.x = element_text(angle = 90))
 fig4f
 ```
 
