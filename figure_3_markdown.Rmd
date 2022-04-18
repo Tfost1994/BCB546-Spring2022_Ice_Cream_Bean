@@ -20,18 +20,19 @@ library(tibble)
 
 # Data wrangling
 ```{r}
-wheat <- read_excel("data_files/Supplemental_file_5.xls", sheet = 2)
+wheat <- read_excel("./data_files/Supplemental_file_5.xls", sheet = 2)
 names(wheat) <- NULL # do not include top header/label row
 wheat <- data.frame(lapply(wheat, gsub, pattern = " ", replacement = "_"))
 wheat <- data.frame(lapply(wheat, gsub, pattern = "-", replacement = "_"))
 wheat <- data.frame(lapply(wheat, gsub, pattern = ",", replacement = ""))
+# replace space and dash with underscore and eliminate comma
 wheat <- wheat %>%
   as.data.frame() %>%
   row_to_names(row_number = 1)
 colnames(wheat)[1] <- "Gene"
-view(wheat)
+# Make tissue types the column names and add a column name for genes
 
-barley <- read_excel("data_files/Supplemental_file_5.xls", sheet = 3)
+barley <- read_excel("./data_files/Supplemental_file_5.xls", sheet = 3)
 names(barley) <- NULL # do not include top header/label row
 barley <- data.frame(lapply(barley, gsub, pattern = " ", replacement = "_"))
 barley <- data.frame(lapply(barley, gsub, pattern = ",", replacement = ""))
@@ -42,22 +43,25 @@ colnames(barley)[1] <- "Gene"
 colnames(barley)[2] <- "germinating_seed_coleoptile"
 colnames(barley)[3] <- "germinating_seed_root"
 colnames(barley)[12] <- "3_5_DAP_caryopsis"
+# similar process as for wheat file, but need to correct column names for 2, 3, and 12 to match wheat
 
 barley <- barley %>%
   select(-"10_DAP_caryopsis", -"16_DAP_caryopsis")
-view(barley)
-
-
-#barley <- barley[-1,] # remove header row for ages of plant parts
-#view(barley)
+# Get rid of these two columns as there are no no matching columns for wheat
 
 grass <- rbind(wheat, barley) %>%
   pivot_longer(!Gene, names_to = "tissue", values_to = "expression") %>%
   mutate(expression = as.numeric(expression)) %>%
   mutate(tissue = as.factor(tissue))
 str(grass)
+# combine dataframes for barley and wheat, pivot longer to make tissue and expression values columns
+# also ensure that expression is numeric and tissue is factor
 
 ```
+Above, we imported the data pages for wheat and barley, cutting out the merged column header at the top of the data file. We replaced the periods and spaces in tissue type names with an underscore, and completely eliminated the commas to make the tissue type names easier to work with. Making sure that the wheat and barley data frames were actually read as data frames, we also set row 1 (the tissue type names) to be the column names and added a column name "Gene" for the list of genes. 
+
+Since the barley page had tissue type names that didn't exactly match those of the wheat page, we had to change some of these names and eliminate two columns that weren't measured in the wheat page. Only then could we combine the wheat and barley data frames. However, we still needed to do a `pivot_longer` on all the columns except the gene column, moving the expression values into a new column, "expression" and the tissue types into another new column, "tissue". We then ensured that these values were set as the appropriate data types (numeric for expression and factor for tissue).
+
 # Figure 4a
 ```{r}
 grass4a <- grass %>%
@@ -67,8 +71,6 @@ grass4a <- grass %>%
                                   "seedling_leaf", "immature_inflorescence", "floral_bracts_before_anthesis",
                                   "pistil_before_anthesis", "anthers_before_anthesis", "3_5_DAP_caryopsis",
                                   "22_DAP_embryo", "22_DAP_endosperm")))
-
-view(grass4a)
 
 fig4a <- ggplot(data = grass4a, aes(x = tissue, y = expression, group = Gene)) +
   geom_line(aes(color = Gene)) +
@@ -82,7 +84,17 @@ fig4a <- ggplot(data = grass4a, aes(x = tissue, y = expression, group = Gene)) +
   theme(panel.grid.major.y = element_line(color = "gray", linetype = 2), axis.text.x = element_text(angle = 90))
 fig4a
 
+ggsave("./figures/fig4a.pdf", plot = fig4a, width = 8, height = 5, units = "in", dpi = 300) # print to pdf
+
+ggsave("./figures/fig4a.png", plot = fig4a, width = 8, height = 5, units = "in", dpi = 300) # print to png
+
 ```
+To make figure 4a, we first needed to filter only the genes used in figure 4a, "Traes_5BL_E6535628C", "MLOC_44160", and "MLOC_35818". We then releveled the tissue types so that they would print in order in the figure (youngest to oldest tissue types, matching the figure in the paper). 
+
+Next we plotted these data, making a line graph with tissue type on the x axis and Log2 expression value on the y axis. We gave each gene its own color and point shape (keeping them consistent with the colors and point shapes in the paper) and changed the labels on the x axis back to those that were given in the paper (commas, spaces, and dashes included). To match the figure in the paper, we also needed to manually set the y-axis scale (both limits, here set to 4-10, and breaks, set at each integer) and elements of the theme, including grid lines and the angle of the text.
+
+Finally, we saved the figure as a PDF and PNG. 
+
 # Figure 4b
 ```{r}
 grass4b <- grass %>%
@@ -92,8 +104,6 @@ grass4b <- grass %>%
                                   "seedling_leaf", "immature_inflorescence", "floral_bracts_before_anthesis",
                                   "pistil_before_anthesis", "anthers_before_anthesis", "3_5_DAP_caryopsis",
                                   "22_DAP_embryo", "22_DAP_endosperm")))
-
-view(grass4b)
 
 fig4b <- ggplot(data = grass4b, aes(x = tissue, y = expression, group = Gene)) +
   geom_line(aes(color = Gene)) +
@@ -106,7 +116,15 @@ fig4b <- ggplot(data = grass4b, aes(x = tissue, y = expression, group = Gene)) +
   theme_classic() +
   theme(panel.grid.major.y = element_line(color = "gray", linetype = 2), axis.text.x = element_text(angle = 90))
 fig4b
+
+
+ggsave("./figures/fig4b.pdf", plot = fig4b, width = 8, height = 5, units = "in", dpi = 300) # print to pdf
+
+ggsave("./figures/fig4b.png", plot = fig4b, width = 8, height = 5, units = "in", dpi = 300) # print to png
+
 ```
+The process for making figure 4b was nearly identical to that of making figure 4a, with the exception of adding one more line for an additional gene. The y-axis limits were fairly broad, set to 4-14.
+
 # Figure 4c
 ```{r}
 grass4c <- grass %>%
@@ -116,8 +134,6 @@ grass4c <- grass %>%
                                   "seedling_leaf", "immature_inflorescence", "floral_bracts_before_anthesis",
                                   "pistil_before_anthesis", "anthers_before_anthesis", "3_5_DAP_caryopsis",
                                   "22_DAP_embryo", "22_DAP_endosperm")))
-
-view(grass4c)
 
 fig4c <- ggplot(data = grass4c, aes(x = tissue, y = expression, group = Gene)) +
   geom_line(aes(color = Gene)) +
@@ -130,7 +146,15 @@ fig4c <- ggplot(data = grass4c, aes(x = tissue, y = expression, group = Gene)) +
   theme_classic() +
   theme(panel.grid.major.y = element_line(color = "gray", linetype = 2), axis.text.x = element_text(angle = 90))
 fig4c
+
+
+ggsave("./figures/fig4c.pdf", plot = fig4c, width = 8, height = 5, units = "in", dpi = 300) # print to pdf
+
+ggsave("./figures/fig4c.png", plot = fig4c, width = 8, height = 5, units = "in", dpi = 300) # print to png
+
 ```
+Figure 4c is nearly identical to Figure 4b. The only differences are the genes depicted and the order in which the colors and point shapes are included in the figure, to match the figures given in the paper. The y-axis limits were set to 3-10.
+
 # Figure 4d
 ```{r}
 grass4d <- grass %>%
@@ -140,8 +164,6 @@ grass4d <- grass %>%
                                   "seedling_leaf", "immature_inflorescence", "floral_bracts_before_anthesis",
                                   "pistil_before_anthesis", "anthers_before_anthesis", "3_5_DAP_caryopsis",
                                   "22_DAP_embryo", "22_DAP_endosperm")))
-
-view(grass4d)
 
 fig4d <- ggplot(data = grass4d, aes(x = tissue, y = expression, group = Gene)) +
   geom_line(aes(color = Gene)) +
@@ -154,7 +176,14 @@ fig4d <- ggplot(data = grass4d, aes(x = tissue, y = expression, group = Gene)) +
   theme_classic() +
   theme(panel.grid.major.y = element_line(color = "gray", linetype = 2), axis.text.x = element_text(angle = 90))
 fig4d
+
+
+ggsave("./figures/fig4d.pdf", plot = fig4d, width = 8, height = 5, units = "in", dpi = 300) # print to pdf
+
+ggsave("./figures/fig4d.png", plot = fig4d, width = 8, height = 5, units = "in", dpi = 300) # print to png
+
 ```
+Figure 4d is similar to figure 4b and 4c, but has an additional line added for one more gene (five genes instead of four). The y-axis limits were set to 2-11.
 
 # Figure 4e
 ```{r}
@@ -165,8 +194,6 @@ grass4e <- grass %>%
                                   "seedling_leaf", "immature_inflorescence", "floral_bracts_before_anthesis",
                                   "pistil_before_anthesis", "anthers_before_anthesis", "3_5_DAP_caryopsis",
                                   "22_DAP_embryo", "22_DAP_endosperm")))
-
-view(grass4e)
 
 fig4e <- ggplot(data = grass4e, aes(x = tissue, y = expression, group = Gene)) +
   geom_line(aes(color = Gene)) +
@@ -179,7 +206,15 @@ fig4e <- ggplot(data = grass4e, aes(x = tissue, y = expression, group = Gene)) +
   theme_classic() +
   theme(panel.grid.major.y = element_line(color = "gray", linetype = 2), axis.text.x = element_text(angle = 90))
 fig4e
+
+
+ggsave("./figures/fig4e.pdf", plot = fig4e, width = 8, height = 5, units = "in", dpi = 300) # print to pdf
+
+ggsave("./figures/fig4e.png", plot = fig4e, width = 8, height = 5, units = "in", dpi = 300) # print to png
+
 ```
+The process of making figure 4e matched the process of figure 4a - only the genes depicted differ. The y-axis limits were very narrow, set to just 6-11.
+
 # Figure 4f
 ```{r}
 grass4f <- grass %>%
@@ -189,8 +224,6 @@ grass4f <- grass %>%
                                   "seedling_leaf", "immature_inflorescence", "floral_bracts_before_anthesis",
                                   "pistil_before_anthesis", "anthers_before_anthesis", "3_5_DAP_caryopsis",
                                   "22_DAP_embryo", "22_DAP_endosperm")))
-
-view(grass4f)
 
 fig4f <- ggplot(data = grass4f, aes(x = tissue, y = expression, group = Gene)) +
   geom_line(aes(color = Gene)) +
@@ -203,7 +236,14 @@ fig4f <- ggplot(data = grass4f, aes(x = tissue, y = expression, group = Gene)) +
   theme_classic() +
   theme(panel.grid.major.y = element_line(color = "gray", linetype = 2), axis.text.x = element_text(angle = 90))
 fig4f
+
+
+ggsave("./figures/fig4f.pdf", plot = fig4f, width = 8, height = 5, units = "in", dpi = 300) # print to pdf
+
+ggsave("./figures/fig4f.png", plot = fig4f, width = 8, height = 5, units = "in", dpi = 300) # print to png
+
 ```
+Figure 4f is very similar to Figure 4c and 4d, with the expression values of four genes depicted. The y-axis limits were set to 3-11.
 
 # Figure S3a
 ```{r}
@@ -214,8 +254,6 @@ grassS3a <- grass %>%
                                   "seedling_leaf", "immature_inflorescence", "floral_bracts_before_anthesis",
                                   "pistil_before_anthesis", "anthers_before_anthesis", "3_5_DAP_caryopsis",
                                   "22_DAP_embryo", "22_DAP_endosperm")))
-
-view(grassS3a)
 
 figS3a <- ggplot(data = grassS3a, aes(x = tissue, y = expression, group = Gene)) +
   geom_line(aes(color = Gene)) +
@@ -228,7 +266,18 @@ figS3a <- ggplot(data = grassS3a, aes(x = tissue, y = expression, group = Gene))
   theme_classic() +
   theme(panel.grid.major.y = element_line(color = "gray"), axis.text.x = element_text(angle = 90))
 figS3a
+
+
+ggsave("./figures/figS3a.pdf", plot = figS3a, width = 8, height = 5, units = "in", dpi = 300) # print to pdf
+
+ggsave("./figures/figS3a.png", plot = figS3a, width = 8, height = 5, units = "in", dpi = 300) # print to png
+
 ```
+Figure S3 is very similar to Figure 4. This figure uses the same source dataset and differs only slightly in formatting from Figure 4. 
+
+To make figure S3a, we followed the same process that we did with Figure 4a, changing only the names of the genes used. The gridlines were also changed to solid, rather than dashed. Although in the original paper, the tissue types were tilted at 45 degrees, we kept them at a 90 degree angle here to improve readability.
+
+The y-axis limits on this figure were fairly narrow, set to 5-14.
 
 # Figure S3b
 ```{r}
@@ -240,8 +289,6 @@ grassS3b <- grass %>%
                                   "pistil_before_anthesis", "anthers_before_anthesis", "3_5_DAP_caryopsis",
                                   "22_DAP_embryo", "22_DAP_endosperm")))
 
-view(grassS3b)
-
 figS3b <- ggplot(data = grassS3b, aes(x = tissue, y = expression, group = Gene)) +
   geom_line(aes(color = Gene)) +
   scale_color_manual(values = c("#B096D3", "#FF27F8", "#FF9E00", "#2FBE49", "#20CADB", "#6699FF", "#FF3333",  "#9E5CF8")) +
@@ -251,9 +298,16 @@ figS3b <- ggplot(data = grassS3b, aes(x = tissue, y = expression, group = Gene))
   scale_x_discrete("", labels = c("Germinating seed, coleoptile", "Germinating seed, root", "Germinating seed, embryo", "Seedling, root", "Seedling, crown", "Seedling, leaf", "Immature inflorescence", "Floral bracts, before anthesis", "Pistil, before anthesis", "Anthers, before anthesis", "3-5 DAP caryopsis", "22 DAP embryo", "22 DAP endosperm")) +
   scale_y_continuous(limits = c(3, 14), breaks = c(3:14)) +
   theme_classic() +
-  theme(panel.grid.major.y = element_line(color = "gray", linetype = 2), axis.text.x = element_text(angle = 90))
+  theme(panel.grid.major.y = element_line(color = "gray"), axis.text.x = element_text(angle = 90))
 figS3b
+
+ggsave("./figures/figS3b.pdf", plot = figS3b, width = 8, height = 5, units = "in", dpi = 300) # print to pdf
+
+ggsave("./figures/figS3b.png", plot = figS3b, width = 8, height = 5, units = "in", dpi = 300) # print to png
+
 ```
+Figure S3b is very similar to Figure S3a, but contains a large number of genes. Although the original figure does not include a special point symbol for "MLOC_58552", we gave it a point symbol to make it easier to read. The y-axis limits were set to 3-14.
+
 # Figure S3c
 ```{r}
 grassS3c <- grass %>%
@@ -264,8 +318,6 @@ grassS3c <- grass %>%
                                   "pistil_before_anthesis", "anthers_before_anthesis", "3_5_DAP_caryopsis",
                                   "22_DAP_embryo", "22_DAP_endosperm")))
 
-view(grassS3c)
-
 figS3c <- ggplot(data = grassS3c, aes(x = tissue, y = expression, group = Gene)) +
   geom_line(aes(color = Gene)) +
   scale_color_manual(values = c("#B096D3", "#9E5CF8", "#20CADB", "#6699FF", "#FF3333", "#2FBE49", "#FF9E00")) +
@@ -275,7 +327,155 @@ figS3c <- ggplot(data = grassS3c, aes(x = tissue, y = expression, group = Gene))
   scale_x_discrete("", labels = c("Germinating seed, coleoptile", "Germinating seed, root", "Germinating seed, embryo", "Seedling, root", "Seedling, crown", "Seedling, leaf", "Immature inflorescence", "Floral bracts, before anthesis", "Pistil, before anthesis", "Anthers, before anthesis", "3-5 DAP caryopsis", "22 DAP embryo", "22 DAP endosperm")) +
   scale_y_continuous(limits = c(2, 14), breaks = c(2:14)) +
   theme_classic() +
-  theme(panel.grid.major.y = element_line(color = "gray", linetype = 2), axis.text.x = element_text(angle = 90))
+  theme(panel.grid.major.y = element_line(color = "gray"), axis.text.x = element_text(angle = 90))
 figS3c
-```
 
+ggsave("./figures/figS3c.pdf", plot = figS3c, width = 8, height = 5, units = "in", dpi = 300) # print to pdf
+
+ggsave("./figures/figS3c.png", plot = figS3c, width = 8, height = 5, units = "in", dpi = 300) # print to png
+
+```
+The process of making figure S3d was similar to that used to make other figures in this set, although the y-axis limits were set to 2-14.
+
+# Figure S3d
+```{r}
+grassS3d <- grass %>%
+  filter(Gene %in% c("Traes_4BL_CB29C15C5", "Traes_4DL_5640A8CC5", "Traes_4BL_410DEBFD3", "MLOC_65665")) %>%
+  mutate(tissue = fct_relevel(tissue, c("germinating_seed_coleoptile", "germinating_seed_root",
+                                  "germinating_seed_embryo", "seedling_root", "seedling_crown",
+                                  "seedling_leaf", "immature_inflorescence", "floral_bracts_before_anthesis",
+                                  "pistil_before_anthesis", "anthers_before_anthesis", "3_5_DAP_caryopsis",
+                                  "22_DAP_embryo", "22_DAP_endosperm")))
+
+figS3d <- ggplot(data = grassS3d, aes(x = tissue, y = expression, group = Gene)) +
+  geom_line(aes(color = Gene)) +
+  scale_color_manual(values = c("#9E5CF8", "#2FBE49", "#6699FF", "#FF3333")) +
+  geom_point(aes(color = Gene, shape = Gene), size = 3) +
+  scale_shape_manual(values = c(4, 17, 18, 15)) +
+  ylab("Log2 expression value") +
+  scale_x_discrete("", labels = c("Germinating seed, coleoptile", "Germinating seed, root", "Germinating seed, embryo", "Seedling, root", "Seedling, crown", "Seedling, leaf", "Immature inflorescence", "Floral bracts, before anthesis", "Pistil, before anthesis", "Anthers, before anthesis", "3-5 DAP caryopsis", "22 DAP embryo", "22 DAP endosperm")) +
+  scale_y_continuous(limits = c(4, 13), breaks = c(4:13)) +
+  theme_classic() +
+  theme(panel.grid.major.y = element_line(color = "gray"), axis.text.x = element_text(angle = 90))
+figS3d
+
+ggsave("./figures/figS3d.pdf", plot = figS3d, width = 8, height = 5, units = "in", dpi = 300) # print to pdf
+
+ggsave("./figures/figS3d.png", plot = figS3d, width = 8, height = 5, units = "in", dpi = 300) # print to png
+```
+The process for making figure S3d was nearly identical to making figure S3a, but using a total of 4 genes rather than 3. The y-axis limits were set to 3-14.
+
+# Figure S3e
+```{r}
+grassS3e <- grass %>%
+  filter(Gene %in% c("Traes_5BS_B590A9E51", "Traes_6BL_7C6B17284", "Traes_5DS_16243E52C", "Traes_1BS_40F6DB3E3", "Traes_6AL_1F7DAC5FA", "MLOC_5375", "MLOC_57890", "MLOC_65843", "MLOC_52944", "MLOC_57700")) %>%
+  mutate(tissue = fct_relevel(tissue, c("germinating_seed_coleoptile", "germinating_seed_root",
+                                  "germinating_seed_embryo", "seedling_root", "seedling_crown",
+                                  "seedling_leaf", "immature_inflorescence", "floral_bracts_before_anthesis",
+                                  "pistil_before_anthesis", "anthers_before_anthesis", "3_5_DAP_caryopsis",
+                                  "22_DAP_embryo", "22_DAP_endosperm")))
+
+figS3e <- ggplot(data = grassS3e, aes(x = tissue, y = expression, group = Gene)) +
+  geom_line(aes(color = Gene)) +
+  scale_color_manual(values = c("#03D961", "#FF9E00", "#8745F3", "#B096D3", "#FF27F8","#9E5CF8",  "#6699FF",    "#2FBE49", "#20CADB", "#FF3333")) +
+  geom_point(aes(color = Gene, shape = Gene), size = 3) +
+  scale_shape_manual(values = c(9, 16, 10, 3, 5, 4, 18, 17, 8, 15)) +
+  ylab("Log2 expression value") +
+  scale_x_discrete("", labels = c("Germinating seed, coleoptile", "Germinating seed, root", "Germinating seed, embryo", "Seedling, root", "Seedling, crown", "Seedling, leaf", "Immature inflorescence", "Floral bracts, before anthesis", "Pistil, before anthesis", "Anthers, before anthesis", "3-5 DAP caryopsis", "22 DAP embryo", "22 DAP endosperm")) +
+  scale_y_continuous(limits = c(2, 14), breaks = c(2:14)) +
+  theme_classic() +
+  theme(panel.grid.major.y = element_line(color = "gray"), axis.text.x = element_text(angle = 90))
+figS3e
+
+ggsave("./figures/figS3e.pdf", plot = figS3e, width = 8, height = 5, units = "in", dpi = 300) # print to pdf
+
+ggsave("./figures/figS3e.png", plot = figS3e, width = 8, height = 5, units = "in", dpi = 300) # print to png
+
+
+```
+Due to the large number of genes graphed in Figure S3e, we needed to add several more point types and line colors. Although not all genes had point types associated with them in the original Figure S3e in the paper, we added these to facilitate viewing due to the similarity in some of the colors and to increase accessibility. The y-axis limits were also changed to 2-14.
+
+# Figure S3f
+```{r}
+grassS3f <- grass %>%
+  filter(Gene %in% c("Traes_4BL_B075EFE84", "Traes_1DL_2997D073B", "Traes_4DL_5633C0561", "Traes_1DL_71B026104", "Traes_5AL_21C395CA8", "MLOC_54256", "MLOC_70546")) %>%
+  mutate(tissue = fct_relevel(tissue, c("germinating_seed_coleoptile", "germinating_seed_root",
+                                  "germinating_seed_embryo", "seedling_root", "seedling_crown",
+                                  "seedling_leaf", "immature_inflorescence", "floral_bracts_before_anthesis",
+                                  "pistil_before_anthesis", "anthers_before_anthesis", "3_5_DAP_caryopsis",
+                                  "22_DAP_embryo", "22_DAP_endosperm")))
+
+figS3f <- ggplot(data = grassS3f, aes(x = tissue, y = expression, group = Gene)) +
+  geom_line(aes(color = Gene)) +
+  scale_color_manual(values = c("#FF9E00", "#B096D3", "#FF3333", "#9E5CF8", "#6699FF", "#2FBE49", "#20CADB")) +
+  geom_point(aes(color = Gene, shape = Gene), size = 3) +
+  scale_shape_manual(values = c(16, 3, 15, 4, 18, 17, 8)) +
+  ylab("Log2 expression value") +
+  scale_x_discrete("", labels = c("Germinating seed, coleoptile", "Germinating seed, root", "Germinating seed, embryo", "Seedling, root", "Seedling, crown", "Seedling, leaf", "Immature inflorescence", "Floral bracts, before anthesis", "Pistil, before anthesis", "Anthers, before anthesis", "3-5 DAP caryopsis", "22 DAP embryo", "22 DAP endosperm")) +
+  scale_y_continuous(limits = c(2, 14), breaks = c(2:14)) +
+  theme_classic() +
+  theme(panel.grid.major.y = element_line(color = "gray"), axis.text.x = element_text(angle = 90))
+figS3f
+
+ggsave("./figures/figS3f.pdf", plot = figS3f, width = 8, height = 5, units = "in", dpi = 300) # print to pdf
+
+ggsave("./figures/figS3f.png", plot = figS3f, width = 8, height = 5, units = "in", dpi = 300) # print to png
+```
+Figure S3f is similar to other figures in this set, and as such, the process to produce it was nearly identical, with only gene names changed. The y-axis limits were set to 2-14, as in Figure S3e.
+
+# Figure S3g
+```{r}
+grassS3g <- grass %>%
+  filter(Gene %in% c("Traes_2DS_2A961F39D", "Traes_2DS_3A2D5B67D", "Traes_2AS_2FCD59730", "Traes_4DL_EE41726EA", "Traes_2DS_00DB0399E", "Traes_4AS_B2CDBFB54", "Traes_4BL_430501C10", "Traes_2BS_2CA9DB5DE", "MLOC_81154", "MLOC_12732")) %>%
+  mutate(tissue = fct_relevel(tissue, c("germinating_seed_coleoptile", "germinating_seed_root",
+                                  "germinating_seed_embryo", "seedling_root", "seedling_crown",
+                                  "seedling_leaf", "immature_inflorescence", "floral_bracts_before_anthesis",
+                                  "pistil_before_anthesis", "anthers_before_anthesis", "3_5_DAP_caryopsis",
+                                  "22_DAP_embryo", "22_DAP_endosperm")))
+
+figS3g <- ggplot(data = grassS3g, aes(x = tissue, y = expression, group = Gene)) +
+  geom_line(aes(color = Gene)) +
+  scale_color_manual(values = c("#8745F3", "#03D961", "#2FBE49", "#FF27F8", "#20CADB", "#6699FF", "#FF3333", "#FF9E00",  "#B096D3", "#9E5CF8")) +
+  geom_point(aes(color = Gene, shape = Gene), size = 3) +
+  scale_shape_manual(values = c(10, 9, 17, 5, 8, 18, 15, 16, 3, 4)) +
+  ylab("Log2 expression value") +
+  scale_x_discrete("", labels = c("Germinating seed, coleoptile", "Germinating seed, root", "Germinating seed, embryo", "Seedling, root", "Seedling, crown", "Seedling, leaf", "Immature inflorescence", "Floral bracts, before anthesis", "Pistil, before anthesis", "Anthers, before anthesis", "3-5 DAP caryopsis", "22 DAP embryo", "22 DAP endosperm")) +
+  scale_y_continuous(limits = c(3, 12), breaks = c(3:12)) +
+  theme_classic() +
+  theme(panel.grid.major.y = element_line(color = "gray"), axis.text.x = element_text(angle = 90))
+figS3g
+
+ggsave("./figures/figS3g.pdf", plot = figS3g, width = 8, height = 5, units = "in", dpi = 300) # print to pdf
+
+ggsave("./figures/figS3g.png", plot = figS3g, width = 8, height = 5, units = "in", dpi = 300) # print to png
+
+```
+Figure S3g is similar to Figure S3e in that it contains a large number of genes. The y-axis limits were changed to 3-12, as well. 
+
+# Figure S3h
+```{r}
+grassS3h <- grass %>%
+  filter(Gene %in% c("Traes_7DS_46E811D74", "Traes_7BS_E337E82FB", "Traes_7AS_F46AC277B", "Traes_6BL_F5F82174B", "Traes_6DL_036293C55", "Traes_7BS_4FDD8D6E2", "MLOC_6921")) %>%
+  mutate(tissue = fct_relevel(tissue, c("germinating_seed_coleoptile", "germinating_seed_root",
+                                  "germinating_seed_embryo", "seedling_root", "seedling_crown",
+                                  "seedling_leaf", "immature_inflorescence", "floral_bracts_before_anthesis",
+                                  "pistil_before_anthesis", "anthers_before_anthesis", "3_5_DAP_caryopsis",
+                                  "22_DAP_embryo", "22_DAP_endosperm")))
+
+figS3h <- ggplot(data = grassS3h, aes(x = tissue, y = expression, group = Gene)) +
+  geom_line(aes(color = Gene)) +
+  scale_color_manual(values = c("#B096D3", "#9E5CF8", "#20CADB", "#2FBE49", "#FF9E00", "#FF3333", "#6699FF")) +
+  geom_point(aes(color = Gene, shape = Gene), size = 3) +
+  scale_shape_manual(values = c(3, 4, 8, 17, 16, 15, 18)) +
+  ylab("Log2 expression value") +
+  scale_x_discrete("", labels = c("Germinating seed, coleoptile", "Germinating seed, root", "Germinating seed, embryo", "Seedling, root", "Seedling, crown", "Seedling, leaf", "Immature inflorescence", "Floral bracts, before anthesis", "Pistil, before anthesis", "Anthers, before anthesis", "3-5 DAP caryopsis", "22 DAP embryo", "22 DAP endosperm")) +
+  scale_y_continuous(limits = c(4, 11), breaks = c(4:11)) +
+  theme_classic() +
+  theme(panel.grid.major.y = element_line(color = "gray"), axis.text.x = element_text(angle = 90))
+figS3h
+
+ggsave("./figures/figS3h.pdf", plot = figS3h, width = 8, height = 5, units = "in", dpi = 300) # print to pdf
+
+ggsave("./figures/figS3h.png", plot = figS3h, width = 8, height = 5, units = "in", dpi = 300) # print to png
+```
+Figure S3h is similar to other figures in this set. The y-axis limits were changed to 4-11.
