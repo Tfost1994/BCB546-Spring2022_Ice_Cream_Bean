@@ -4,14 +4,6 @@ author: "Karlene Negus"
 date: "4/19/2022"
 output: html_document
 ---
-
-Update the path variable to the location of the cloned repository for this project. Path should end in "BCB546-Spring2022_Ice_Cream_Bean/"
-```{r}
-path <- "~/Desktop/BCB546_2022/BCB546-Spring2022_Ice_Cream_Bean/"
-setwd(paste(path, "table1_tableS1", sep = ""))
-```
-
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(readxl)
@@ -20,6 +12,7 @@ library(stringr)
 library(kableExtra)
 library(knitr)
 library(tidyr)
+library(here)
 ```
 
 The CRAN version of kableExtra has a bug in the collapse_rows() function. For this function to work kableExtra must be updated from its github source
@@ -28,6 +21,14 @@ The CRAN version of kableExtra has a bug in the collapse_rows() function. For th
 # must use this version to collapse rows in tables
 devtools::install_github(repo="haozhu233/kableExtra", ref="a6af5c0")
 ```
+
+This Table1.Rmd file must be located at the path ending in "/BCB546-Spring2022_Ice_Cream_Bean/table1_S1". No changes necessary if this is cloned from github directly.
+```{r}
+set_here()
+path <- dirname(rstudioapi::getActiveDocumentContext()$path)
+setwd(path)
+```
+
 # Table 1
 
 ## Read in File
