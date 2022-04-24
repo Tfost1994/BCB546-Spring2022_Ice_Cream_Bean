@@ -1,7 +1,4 @@
-+---------------------------+--------------+--------------+
-| Ensembl annotation status |    Barley    |    Wheat     |
-+---------------------------+--------------+--------------+
-|      Uncharacterized      | 94.2 % (259) | 96.2 % (866) |
-|       Characterized       |  5.8 % (16)  |  3.8 % (34)  |
-|           Total           |     275      |     900      |
-+---------------------------+--------------+--------------+
+
+   Ensembl annotation status     Barley        Wheat     
+      Uncharacterized           94.2 % (259)  96.2 % (866)          Characterized            5.8 % (16)    3.8 % (34)  
+          Total                  275          900      
