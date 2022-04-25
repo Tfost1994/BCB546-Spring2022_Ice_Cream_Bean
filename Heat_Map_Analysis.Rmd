@@ -76,16 +76,13 @@ heatmap.2(arabidopsis_matrix,
           labRow = FALSE, #turns off row labels
           col = colfunc(99), #use the color palette we created above
           cexCol = 0.7, #changes column label font
-          lmat = rbind(c(0,3,0),c(2,1,0),c(0,4,0)),
+          lmat = rbind(c(0,3,0),c(2,1,0),c(0,4,0)), #manually placing key objects of figure
           lwid = c(0.05, 0.1, 0.05), #changes dimensions of the array cell widths
           lhei = c(0.43, 3.5, 0.6), #alter dimensions of array cell heights
           key.title = NA, #turns off key title
           density.info="none", #turns off the trace lines in the key
           key.par=list(mar=c(2, 0, 4,0) ), #tweaks specific key parameters
-          key.xtickfun = function() {breaks = pretty(parent.frame()$breaks)          
-            breaks = breaks[c(1,length(breaks))]             
-            list(at = parent.frame()$scale01(breaks), labels = breaks) #changes the tick marks on key
-            })
+)
 ```
 
 # Wheat Heat Map
@@ -126,16 +123,13 @@ heatmap.2(wheat_matrix,
           labRow = FALSE, #turns off row labels
           col = colfunc(99), #use the color palette we created above
           cexCol = 1, #changes column label font
-          lmat = rbind(c(0,3,0),c(2,1,0),c(0,4,0)),
+          lmat = rbind(c(0,3,0),c(2,1,0),c(0,4,0)), #manually placing key objects of figure
           lwid = c(0.05, 0.05, 0.05), #changes dimensions of the array cell widths
           lhei = c(0.43, 2.6, 0.6), #alter dimensions of array cell heights
           key.title = NA, #turns off key title
           density.info="none", #turns off the trace lines in the key
           key.par=list(mar=c(2, 0, 1.8,0) ), #tweaks specific key parameters
-          key.xtickfun = function() {breaks = pretty(parent.frame()$breaks)          
-            breaks = breaks[c(1,length(breaks))]             
-            list(at = parent.frame()$scale01(breaks), labels = breaks)           
-            })
+)
 ```
 
 # Barley Heat Map
@@ -178,11 +172,9 @@ heatmap.2(barley_matrix,
           cexCol = 1, #changes column label font
           key.title = NA, #turns off key title
           density.info="none", #turns off the trace lines in the key          
-          lmat = rbind(c(0,3,0),c(2,1,0),c(0,4,0)),
+          lmat = rbind(c(0,3,0),c(2,1,0),c(0,4,0)), #manually placing key objects of figure
           lwid = c(0.05, 0.05, 0.05), #changes dimensions of the array cell widths
           lhei = c(0.43, 2.6, 0.6), #alter dimensions of array cell heights
           key.par=list(mar=c(2, 0, 1.8,0) ), #tweaks specific key parameters
-          key.xtickfun = function() {breaks = pretty(parent.frame()$breaks)          
-            breaks = breaks[c(1,length(breaks))]             
-            list(at = parent.frame()$scale01(breaks), labels = breaks)           })
+)
 ```
