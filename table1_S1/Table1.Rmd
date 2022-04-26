@@ -24,9 +24,7 @@ devtools::install_github(repo="haozhu233/kableExtra", ref="a6af5c0")
 
 This Table1.Rmd file must be located at the path ending in "/BCB546-Spring2022_Ice_Cream_Bean/table1_S1". No changes necessary if this is cloned from github directly.
 ```{r}
-set_here()
-path <- dirname(rstudioapi::getActiveDocumentContext()$path)
-setwd(path)
+if(!grepl("BCB546-Spring2022_Ice_Cream_Bean/table1_S1", here::here())) {warning("Incorrect working directory")}
 ```
 
 # Table 1

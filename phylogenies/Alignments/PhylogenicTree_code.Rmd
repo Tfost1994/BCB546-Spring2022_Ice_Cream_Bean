@@ -1,0 +1,68 @@
+---
+title: "Trees"
+author: "Karlene Negus"
+date: "4/25/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+# knitr::opts_chunk$set(echo = TRUE)
+# if (!require("BiocManager", quietly = TRUE))
+#     install.packages("BiocManager")
+# 
+# BiocManager::install("ggtree")
+# BiocManager::install("msa")
+# BiocManager::install("DECIPHER")
+# install.packages("seqinr")
+# install.packages("adegenet")
+# install.packages("ape")
+# install.packages("pegas")
+# install.packages("bios2mds")
+# install.packages("ips")
+# install.packages("stringr")
+# install.packages("reshape2")
+# install.packages("beast")
+# install.packages("beautier")
+# install.packages("babette")
+
+
+
+
+library(babette)
+library(beautier)
+library(seqinr)
+# library(adegenet)
+# library(ggtree)
+# library(msa)
+# library(ape)
+# library(pegas)
+library(DECIPHER)
+# library(bios2mds)
+# library(ips)
+# library(stringr)
+# library(reshape2)
+```
+
+```{r}
+remotes::install_github("richelbilderbeek/beastierinstall")
+beastierinstall::install_beast2()
+```
+
+```{r}
+setwd("/home/karlene/Desktop/BCB546_2022/BCB546-Spring2022_Ice_Cream_Bean/phylogenies")
+Fig1a_aln <- read.alignment(file = "Fig1a_Seq.aln", format= 'clustal')
+Fig1b_aln <- read.alignment(file = "Fig1b_Seq.aln", format= 'clustal')
+write.fasta(Fig1a_aln$seq, names = Fig1a_aln$nam, file.out = "Fig1a_aln.fasta")
+
+bbt_run_from_model("Fig1a_aln.fasta")
+
+```
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
