@@ -16,8 +16,8 @@ library(ggplot)
 library(kableExtra)
 options(knitr.table.format = "html")
 ```
-```table2<-read.delim("https://raw.githubusercontent.com/sminkler/BCB546-Spring2022_Ice_Cream_Bean_SMinkler/main/SMINKLERScripts.Files/Table_2%20(2).txt", header=T)
-table3<-read.delim("https://raw.githubusercontent.com/sminkler/BCB546-Spring2022_Ice_Cream_Bean_SMinkler/main/SMINKLERScripts.Files/Table_3.txt")```
+```table2<-read.delim("https://raw.githubusercontent.com/sminkler/BCB546-Spring2022_Ice_Cream_Bean_SMinkler/main/Results/Table_2/Table_2%20(3).txt", header=T)
+table3<-read.delim("https://github.com/sminkler/BCB546-Spring2022_Ice_Cream_Bean_SMinkler/blob/main/Results/Table_3/Table_3.txt")```
 ## I downloaded all of the necessary packages to try to update my tables and loaded my table files from github into my R-project.
 ```kbl(table2) %>%
 +     kable_paper(bootstrap_options = "striped", full_width = F)
