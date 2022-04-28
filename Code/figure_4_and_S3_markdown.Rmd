@@ -1,5 +1,5 @@
 ---
-title: "figure_4"
+title: "figures 4 and S3"
 author: "Elizabeth McMurchie"
 date: '2022-04-13'
 output: html_document
@@ -8,6 +8,12 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+# Introduction
+
+In this code, I wrangled the data from `Supplemental_file_5.xls`, which contains expression values of various genes in different tissues in wheat and barley, and used this code to replicated Figures 4 and S3 from Peng et al. 2015.
+
+- Elizabeth McMurchie
+
 # Read in necessary libraries
 ```{r}
 library(tidyverse)
@@ -20,7 +26,8 @@ library(tibble)
 
 # Data wrangling
 ```{r}
-wheat <- read_excel("./data_files/Supplemental_file_5.xls", sheet = 2)
+setwd('..')
+wheat <- read_excel("./Peng_Data/Supplemental file 5.xls", sheet = 2)
 names(wheat) <- NULL # do not include top header/label row
 wheat <- data.frame(lapply(wheat, gsub, pattern = " ", replacement = "_"))
 wheat <- data.frame(lapply(wheat, gsub, pattern = "-", replacement = "_"))
@@ -84,9 +91,11 @@ fig4a <- ggplot(data = grass4a, aes(x = tissue, y = expression, group = Gene)) +
   theme(panel.grid.major.y = element_line(color = "gray", linetype = 2), axis.text.x = element_text(angle = 90))
 fig4a
 
-ggsave("./figures/fig4a.pdf", plot = fig4a, width = 8, height = 8, units = "in", dpi = 300) # print to pdf
+setwd('..')
 
-ggsave("./figures/fig4a.png", plot = fig4a, width = 8, height = 8, units = "in", dpi = 300) # print to png
+ggsave("./Results/Fig_4/fig4a.pdf", plot = fig4a, width = 8, height = 8, units = "in", dpi = 300) # print to pdf
+
+ggsave("./Results/Fig_4/fig4a.png", plot = fig4a, width = 8, height = 8, units = "in", dpi = 300) # print to png
 
 ```
 To make figure 4a, we first needed to filter only the genes used in figure 4a, "Traes_5BL_E6535628C", "MLOC_44160", and "MLOC_35818". We then releveled the tissue types so that they would print in order in the figure (youngest to oldest tissue types, matching the figure in the paper). 
@@ -117,10 +126,11 @@ fig4b <- ggplot(data = grass4b, aes(x = tissue, y = expression, group = Gene)) +
   theme(panel.grid.major.y = element_line(color = "gray", linetype = 2), axis.text.x = element_text(angle = 90))
 fig4b
 
+setwd('..')
 
-ggsave("./figures/fig4b.pdf", plot = fig4b, width = 8, height = 8, units = "in", dpi = 300) # print to pdf
+ggsave("./Results/Fig_4/fig4b.pdf", plot = fig4b, width = 8, height = 8, units = "in", dpi = 300) # print to pdf
 
-ggsave("./figures/fig4b.png", plot = fig4b, width = 8, height = 8, units = "in", dpi = 300) # print to png
+ggsave("./Results/Fig_4/fig4b.png", plot = fig4b, width = 8, height = 8, units = "in", dpi = 300) # print to png
 
 ```
 The process for making figure 4b was nearly identical to that of making figure 4a, with the exception of adding one more line for an additional gene. The y-axis limits were fairly broad, set to 4-14.
@@ -147,10 +157,11 @@ fig4c <- ggplot(data = grass4c, aes(x = tissue, y = expression, group = Gene)) +
   theme(panel.grid.major.y = element_line(color = "gray", linetype = 2), axis.text.x = element_text(angle = 90))
 fig4c
 
+setwd('..')
 
-ggsave("./figures/fig4c.pdf", plot = fig4c, width = 8, height = 8, units = "in", dpi = 300) # print to pdf
+ggsave("./Results/Fig_4/fig4c.pdf", plot = fig4c, width = 8, height = 8, units = "in", dpi = 300) # print to pdf
 
-ggsave("./figures/fig4c.png", plot = fig4c, width = 8, height = 8, units = "in", dpi = 300) # print to png
+ggsave("./Results/Fig_4/fig4c.png", plot = fig4c, width = 8, height = 8, units = "in", dpi = 300) # print to png
 
 ```
 Figure 4c is nearly identical to Figure 4b. The only differences are the genes depicted and the order in which the colors and point shapes are included in the figure, to match the figures given in the paper. The y-axis limits were set to 3-10.
@@ -177,10 +188,11 @@ fig4d <- ggplot(data = grass4d, aes(x = tissue, y = expression, group = Gene)) +
   theme(panel.grid.major.y = element_line(color = "gray", linetype = 2), axis.text.x = element_text(angle = 90))
 fig4d
 
+setwd('..')
 
-ggsave("./figures/fig4d.pdf", plot = fig4d, width = 8, height = 8, units = "in", dpi = 300) # print to pdf
+ggsave("./Results/Fig_4/fig4d.pdf", plot = fig4d, width = 8, height = 8, units = "in", dpi = 300) # print to pdf
 
-ggsave("./figures/fig4d.png", plot = fig4d, width = 8, height = 8, units = "in", dpi = 300) # print to png
+ggsave("./Results/Fig_4/fig4d.png", plot = fig4d, width = 8, height = 8, units = "in", dpi = 300) # print to png
 
 ```
 Figure 4d is similar to figure 4b and 4c, but has an additional line added for one more gene (five genes instead of four). The y-axis limits were set to 2-11.
@@ -207,10 +219,11 @@ fig4e <- ggplot(data = grass4e, aes(x = tissue, y = expression, group = Gene)) +
   theme(panel.grid.major.y = element_line(color = "gray", linetype = 2), axis.text.x = element_text(angle = 90))
 fig4e
 
+setwd('..')
 
-ggsave("./figures/fig4e.pdf", plot = fig4e, width = 8, height = 8, units = "in", dpi = 300) # print to pdf
+ggsave("./Results/Fig_4/fig4e.pdf", plot = fig4e, width = 8, height = 8, units = "in", dpi = 300) # print to pdf
 
-ggsave("./figures/fig4e.png", plot = fig4e, width = 8, height = 8, units = "in", dpi = 300) # print to png
+ggsave("./Results/Fig_4/fig4e.png", plot = fig4e, width = 8, height = 8, units = "in", dpi = 300) # print to png
 
 ```
 The process of making figure 4e matched the process of figure 4a - only the genes depicted differ. The y-axis limits were very narrow, set to just 6-11.
@@ -237,10 +250,11 @@ fig4f <- ggplot(data = grass4f, aes(x = tissue, y = expression, group = Gene)) +
   theme(panel.grid.major.y = element_line(color = "gray", linetype = 2), axis.text.x = element_text(angle = 90))
 fig4f
 
+setwd('..')
 
-ggsave("./figures/fig4f.pdf", plot = fig4f, width = 8, height = 8, units = "in", dpi = 300) # print to pdf
+ggsave("./Results/Fig_4/fig4f.pdf", plot = fig4f, width = 8, height = 8, units = "in", dpi = 300) # print to pdf
 
-ggsave("./figures/fig4f.png", plot = fig4f, width = 8, height = 8, units = "in", dpi = 300) # print to png
+ggsave("./Results/Fig_4/fig4f.png", plot = fig4f, width = 8, height = 8, units = "in", dpi = 300) # print to png
 
 ```
 Figure 4f is very similar to Figure 4c and 4d, with the expression values of four genes depicted. The y-axis limits were set to 3-11.
@@ -267,10 +281,11 @@ figS3a <- ggplot(data = grassS3a, aes(x = tissue, y = expression, group = Gene))
   theme(panel.grid.major.y = element_line(color = "gray"), axis.text.x = element_text(angle = 90))
 figS3a
 
+setwd('..')
 
-ggsave("./figures/figS3a.pdf", plot = figS3a, width = 8, height = 8, units = "in", dpi = 300) # print to pdf
+ggsave("./Results/Supp_Fig_3/figS3a.pdf", plot = figS3a, width = 8, height = 8, units = "in", dpi = 300) # print to pdf
 
-ggsave("./figures/figS3a.png", plot = figS3a, width = 8, height = 8, units = "in", dpi = 300) # print to png
+ggsave("./Results/Supp_Fig_3/figS3a.png", plot = figS3a, width = 8, height = 8, units = "in", dpi = 300) # print to png
 
 ```
 Figure S3 is very similar to Figure 4. This figure uses the same source dataset and differs only slightly in formatting from Figure 4. 
@@ -301,9 +316,11 @@ figS3b <- ggplot(data = grassS3b, aes(x = tissue, y = expression, group = Gene))
   theme(panel.grid.major.y = element_line(color = "gray"), axis.text.x = element_text(angle = 90))
 figS3b
 
-ggsave("./figures/figS3b.pdf", plot = figS3b, width = 8, height = 8, units = "in", dpi = 300) # print to pdf
+setwd('..')
 
-ggsave("./figures/figS3b.png", plot = figS3b, width = 8, height = 8, units = "in", dpi = 300) # print to png
+ggsave("./Results/Supp_Fig_3/figS3b.pdf", plot = figS3b, width = 8, height = 8, units = "in", dpi = 300) # print to pdf
+
+ggsave("./Results/Supp_Fig_3/figS3b.png", plot = figS3b, width = 8, height = 8, units = "in", dpi = 300) # print to png
 
 ```
 Figure S3b is very similar to Figure S3a, but contains a large number of genes. Although the original figure does not include a special point symbol for "MLOC_58552", we gave it a point symbol to make it easier to read. The y-axis limits were set to 3-14.
@@ -330,9 +347,11 @@ figS3c <- ggplot(data = grassS3c, aes(x = tissue, y = expression, group = Gene))
   theme(panel.grid.major.y = element_line(color = "gray"), axis.text.x = element_text(angle = 90))
 figS3c
 
-ggsave("./figures/figS3c.pdf", plot = figS3c, width = 8, height = 8, units = "in", dpi = 300) # print to pdf
+setwd('..')
 
-ggsave("./figures/figS3c.png", plot = figS3c, width = 8, height = 8, units = "in", dpi = 300) # print to png
+ggsave("./Results/Supp_Fig_3/figS3c.pdf", plot = figS3c, width = 8, height = 8, units = "in", dpi = 300) # print to pdf
+
+ggsave("./Results/Supp_Fig_3/figS3c.png", plot = figS3c, width = 8, height = 8, units = "in", dpi = 300) # print to png
 
 ```
 The process of making figure S3d was similar to that used to make other figures in this set, although the y-axis limits were set to 2-14.
@@ -359,9 +378,11 @@ figS3d <- ggplot(data = grassS3d, aes(x = tissue, y = expression, group = Gene))
   theme(panel.grid.major.y = element_line(color = "gray"), axis.text.x = element_text(angle = 90))
 figS3d
 
-ggsave("./figures/figS3d.pdf", plot = figS3d, width = 8, height = 8, units = "in", dpi = 300) # print to pdf
+setwd('..')
 
-ggsave("./figures/figS3d.png", plot = figS3d, width = 8, height = 8, units = "in", dpi = 300) # print to png
+ggsave("./Results/Supp_Fig_3/figS3d.pdf", plot = figS3d, width = 8, height = 8, units = "in", dpi = 300) # print to pdf
+
+ggsave("./Results/Supp_Fig_3/figS3d.png", plot = figS3d, width = 8, height = 8, units = "in", dpi = 300) # print to png
 ```
 The process for making figure S3d was nearly identical to making figure S3a, but using a total of 4 genes rather than 3. The y-axis limits were set to 3-14.
 
@@ -387,9 +408,11 @@ figS3e <- ggplot(data = grassS3e, aes(x = tissue, y = expression, group = Gene))
   theme(panel.grid.major.y = element_line(color = "gray"), axis.text.x = element_text(angle = 90))
 figS3e
 
-ggsave("./figures/figS3e.pdf", plot = figS3e, width = 8, height = 8, units = "in", dpi = 300) # print to pdf
+setwd('..')
 
-ggsave("./figures/figS3e.png", plot = figS3e, width = 8, height = 8, units = "in", dpi = 300) # print to png
+ggsave("./Results/Supp_Fig_3/figS3e.pdf", plot = figS3e, width = 8, height = 8, units = "in", dpi = 300) # print to pdf
+
+ggsave("./Results/Supp_Fig_3/figS3e.png", plot = figS3e, width = 8, height = 8, units = "in", dpi = 300) # print to png
 
 ```
 Due to the large number of genes graphed in Figure S3e, we needed to add several more point types and line colors. Although not all genes had point types associated with them in the original Figure S3e in the paper, we added these to facilitate viewing due to the similarity in some of the colors and to increase accessibility. The y-axis limits were also changed to 2-14.
@@ -416,9 +439,11 @@ figS3f <- ggplot(data = grassS3f, aes(x = tissue, y = expression, group = Gene))
   theme(panel.grid.major.y = element_line(color = "gray"), axis.text.x = element_text(angle = 90))
 figS3f
 
-ggsave("./figures/figS3f.pdf", plot = figS3f, width = 8, height = 8, units = "in", dpi = 300) # print to pdf
+setwd('..')
 
-ggsave("./figures/figS3f.png", plot = figS3f, width = 8, height = 8, units = "in", dpi = 300) # print to png
+ggsave("./Results/Supp_Fig_3/figS3f.pdf", plot = figS3f, width = 8, height = 8, units = "in", dpi = 300) # print to pdf
+
+ggsave("./Results/Supp_Fig_3/figS3f.png", plot = figS3f, width = 8, height = 8, units = "in", dpi = 300) # print to png
 ```
 Figure S3f is similar to other figures in this set, and as such, the process to produce it was nearly identical, with only gene names changed. The y-axis limits were set to 2-14, as in Figure S3e.
 
@@ -444,9 +469,11 @@ figS3g <- ggplot(data = grassS3g, aes(x = tissue, y = expression, group = Gene))
   theme(panel.grid.major.y = element_line(color = "gray"), axis.text.x = element_text(angle = 90))
 figS3g
 
-ggsave("./figures/figS3g.pdf", plot = figS3g, width = 8, height = 8, units = "in", dpi = 300) # print to pdf
+setwd('..')
 
-ggsave("./figures/figS3g.png", plot = figS3g, width = 8, height = 8, units = "in", dpi = 300) # print to png
+ggsave("./Results/Supp_Fig_3/figS3g.pdf", plot = figS3g, width = 8, height = 8, units = "in", dpi = 300) # print to pdf
+
+ggsave("./Results/Supp_Fig_3/figS3g.png", plot = figS3g, width = 8, height = 8, units = "in", dpi = 300) # print to png
 
 ```
 Figure S3g is similar to Figure S3e in that it contains a large number of genes. The y-axis limits were changed to 3-12, as well. 
@@ -473,8 +500,10 @@ figS3h <- ggplot(data = grassS3h, aes(x = tissue, y = expression, group = Gene))
   theme(panel.grid.major.y = element_line(color = "gray"), axis.text.x = element_text(angle = 90))
 figS3h
 
-ggsave("./figures/figS3h.pdf", plot = figS3h, width = 8, height = 8, units = "in", dpi = 300) # print to pdf
+setwd('..')
 
-ggsave("./figures/figS3h.png", plot = figS3h, width = 8, height = 8, units = "in", dpi = 300) # print to png
+ggsave("./Results/Supp_Fig_3/figS3h.pdf", plot = figS3h, width = 8, height = 8, units = "in", dpi = 300) # print to pdf
+
+ggsave("./Results/Supp_Fig_3/figS3h.png", plot = figS3h, width = 8, height = 8, units = "in", dpi = 300) # print to png
 ```
 Figure S3h is similar to other figures in this set. The y-axis limits were changed to 4-11.
