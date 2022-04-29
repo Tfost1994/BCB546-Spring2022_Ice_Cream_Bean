@@ -22,9 +22,9 @@ The CRAN version of kableExtra has a bug in the collapse_rows() function. For th
 devtools::install_github(repo="haozhu233/kableExtra", ref="a6af5c0")
 ```
 
-This Table1.Rmd file must be located at the path ending in "/BCB546-Spring2022_Ice_Cream_Bean/table1_S1". No changes necessary if this is cloned from github directly.
+This Table1.Rmd file must be located at the path ending in "/BCB546-Spring2022_Ice_Cream_Bean". No changes necessary if this is cloned from github directly.
 ```{r}
-if(!grepl("BCB546-Spring2022_Ice_Cream_Bean/table1_S1", here::here())) {warning("Incorrect working directory")}
+if(!grepl("/BCB546-Spring2022_Ice_Cream_Bean$", here::here(), perl = TRUE)) {warning("Incorrect working directory")}
 ```
 
 # Table 1
@@ -96,7 +96,7 @@ table1_kable <- kable(table1, align = c("l", rep("c", 7)), caption = "Table 1: D
 
 table1_kable
 
-save_kable(table1_kable, "Table_1.html")
+save_kable(table1_kable, paste(here(),"/Results/Table_1/Table_1.html", sep = ""))
 ```
 
 # Table S1
@@ -152,7 +152,7 @@ chromosomes and seven known functional group in Arabidopsis.") %>%
   kable_classic(html_font = "Times New Roman")
 
 tableS1_kable
-save_kable(tableS1_kable, "TableS1.html")
+save_kable(tableS1_kable, paste(here(),"/Results/Supp_Table_1/Supp_Table_1.html", sep=""))
 ```
 
 
