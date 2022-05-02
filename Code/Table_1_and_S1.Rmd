@@ -32,7 +32,7 @@ if(!grepl("/BCB546-Spring2022_Ice_Cream_Bean$", here::here(), perl = TRUE)) {war
 ## Read in File
 Supplemental file 1 - sheet 1 is used to create the table. Chromosome & position information is extracted from the locus name.
 ```{r}
-supp1 <- read_xls("../data_files/Supplemental_file _1.xls", skip = 1, n_max = 204)
+supp1 <- read_xls(paste(here(), "/Peng_Data/Supplemental file 1.xls", sep = ""), skip = 1, n_max = 204)
 
 supp1 <- supp1 %>%
   separate(Locus, into = c("X1", "Chr", "POS"), sep = "[A-Z]+", remove = FALSE)%>%
@@ -104,7 +104,7 @@ save_kable(table1_kable, paste(here(),"/Results/Table_1/Table_1.html", sep = "")
 
 Supplementary file 1 - sheet 2 is used for Table S1
 ```{r}
-supp1B <- read_xls("../data_files/Supplemental_file _1.xls", skip = 1, n_max = 204, sheet = 2)
+supp1B <- read_xls(paste(here(), "/Peng_Data/Supplemental file 1.xls", sep = ""), skip = 1, n_max = 204, sheet = 2)
 
 supp1B <- supp1B %>%
   separate(GeneID, into = c("X1", "Chr", "POS"), sep = "[A-Z]+", remove = FALSE)%>%

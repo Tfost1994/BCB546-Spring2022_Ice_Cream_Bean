@@ -85,7 +85,7 @@ OrthoMCL was used through Iowa State University's HPC-class. OrthoMCL was alread
 
 OrthoMCL/ directory contained in the GitHub repository does not contain all the files used to generate the results in Output. Several .fasta files generated in initial data formatting steps are included as files located in `OrthoMCL/original/` and `OrthoMCL/complaintFasta/`. However these files can also be generated in from the `FASTA formatting` section.
 
-Much of the below commands were copied or adapted directly from the OrthoMCL tutorial from (bioinformaticsworkbook.org)[https://bioinformaticsworkbook.org/phylogenetics/00-finding-orthologs-uisng-orthoMCL.html#gsc.tab=0].
+Much of the below commands were copied or adapted directly from the OrthoMCL tutorial from [bioinformaticsworkbook.org](https://bioinformaticsworkbook.org/phylogenetics/00-finding-orthologs-uisng-orthoMCL.html#gsc.tab=0).
 
 ## FASTA formatting
 ```

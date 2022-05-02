@@ -14,13 +14,14 @@ cd ./BCB546-Spring2022_Ice_Cream_Bean
 ```
 A file containing the names of the genes used in Figure 1 copied from the paper is included as the text file `Fig1_names.txt`. Names are line separated.
 ```
-cp ./data_files/Fig1_names.txt ./Results/Fig_1
+mkdir -p ./Results/Fig_1/Output
+cp ./data_files/Fig1_names.txt ./Results/Fig_1/Output
 cd ./Results/Fig_1
 
 mkdir Output
-sort Fig1_names.txt | grep ^Traes - | uniq > ./Output/Fig1_TA_names.txt
-sort Fig1_names.txt | grep ^MLOC - | uniq > ./Output/Fig1_HV_names.txt
-sort Fig1_names.txt | grep ^AT - | uniq > ./Output/Fig1_AT_names.txt
+sort ./Output/Fig1_names.txt | grep ^Traes - | uniq > ./Output/Fig1_TA_names.txt
+sort ./Output/Fig1_names.txt | grep ^MLOC - | uniq > ./Output/Fig1_HV_names.txt
+sort ./Output/Fig1_names.txt | grep ^AT - | uniq > ./Output/Fig1_AT_names.txt
 ```
 Make blast databases
 ```
