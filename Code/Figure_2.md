@@ -9,6 +9,8 @@ ssh -Y [UserID]@hpc-class.its.iastate.edu
 Current directory should contain BCB546-Spring2022_Ice_Cream_Bean directory.
 ```
 cd ./BCB546-Spring2022_Ice_Cream_Bean
+
+mkdir -p ./Results/Fig_2/Output
 ```
 To convert the files output from ClustX, run the below loop in the folder containing the .nxs & .aln files with the same name. Amino acid sequences were used from the .aln file with the header and footer of the .nxs file to generate a .nex file.
 ```
@@ -25,7 +27,7 @@ done
 ```
 Enter an interactive session in a partition with a gpu
 ```
-salloc -n 1 -t 1:00:00 --partition=gpu1
+salloc -n 1 -t 2:00:00 --partition=gpu1
 ```
 Load nessary modules
 ```
@@ -44,11 +46,15 @@ beauti
 ```
 Use key press ctrl+i to open the import window. Navigate to the ./Results/Fig_2/ directory. Select one *.nex files. Use ctrl+e to generate and XML file using the defaults per the description by Peng et al. (2015). Save results to ./Results/Fig_2/ directory. To delet current file navigate to the `Edit` tab and select `Delete`. Repeat for second file, then exit the GUI window.
 
+The paper says that 1,000,000 generations is default. However 10,000,000 appears to be the default when using beauti. The default was kept rather than changing it to match the paper.
 ```
-cd ./Results/Fig_2/
+cd ./Results/Fig_2/Output
 
-beast Fig1a_Seq.xml
-beast Fig1b_Seq.xml
+beast ../Fig1a_Seq.xml
+beast ../Fig1b_Seq.xml
 ```
-
-Cont. --- Unfinished 
+It is unclear how many burn-ins were discarded because the `treeannotator -burnin` requires the exact number to discard rather than the proportion. The number of states was considered to be the same as the default generations used in previous steps so 2,500,000 was used.  
+```
+treeannotator -burnin 2500000 Fig1a_Seq.trees Fig1a_Seq_out.txt
+treeannotator -burnin 2500000 Fig1b_Seq.trees Fig1b_Seq_out.txt
+```
