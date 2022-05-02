@@ -1,0 +1,87 @@
+---
+title: "Trees"
+author: "Karlene Negus"
+date: "4/25/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(cowplot)
+library(tidytree)
+library(treeio)
+library(ggtree)
+library(ggplot2)
+library(here)
+```
+Read in beast trees
+```{r}
+Fig2b <- read.beast(paste(here(),"/Results/Fig_2/Output/Fig1a_Seq_out.txt", sep = ""))
+Fig2a <- read.beast(paste(here(),"/Results/Fig_2/Output/Fig1b_Seq_out.txt", sep=""))
+```
+# Tree labels
+create and order additional labels for tree 2a
+```{r}
+Fig2a_labels <- data.frame(names=c("AT1G18100.1", "AT1G65480.1", "AT2G27550.1", "AT4G20370.1", "AT5G03840.1", "AT5G62040.1", "MLOC_68576.1", "Traes_5AL_9731E2D53.1", "Traes_7AS_EBD5F1F54.1", "Traes_7BS_581AA844D.1", "Traes_7DS_12C14942B.1"), info=c("MFT", "FT", "ATC", "TSF", "TFL1", "BFT", "Barley FT", "", "Wheat FT", "", ""))
+
+label_order_2a <- sapply(Fig2a_labels$name, grep, Fig2a@phylo[["tip.label"]])
+numb.na <- length(Fig2a@data[["node"]]) - length(label_order_2a)
+tree_labels_2a <- c(Fig2a_labels[label_order_2a, 2], rep("", numb.na))
+
+```
+## Tree - Figure 2a
+```{r}
+tree1 <- ggtree(Fig2a, size = .5, color="grey")+
+  geom_tiplab(
+    size = 3.5,
+    offset = 0.05) +
+  geom_text2(aes(label=round(as.numeric(posterior), 2),
+                 x=branch), size=3, vjust=-.25)+
+  geom_tiplab(aes(label=tree_labels_2a), offset = 1.2, size = 4, align = TRUE, linetype = "blank") +
+  geom_cladelab(node = grep("AT2G27550.1", Fig2a@phylo[["tip.label"]]), label="Floral inhibitor", offset = 1.4, size = .5, align=TRUE)+
+  geom_cladelab(node = grep("AT5G03840.1", Fig2a@phylo[["tip.label"]]), label="Floral inhibitor", offset = 1.4, size = .5, align=TRUE)+
+  geom_cladelab(node = grep("AT5G62040.1", Fig2a@phylo[["tip.label"]]), label="Unknown floral", offset = 1.4, size = .5, align=TRUE)+
+  geom_cladelab(node = grep("AT1G18100.1", Fig2a@phylo[["tip.label"]]), label="Unknown floral", offset = 1.4, size = .5, align=TRUE)+
+  geom_cladelab(node = grep("AT1G65480.1", Fig2a@phylo[["tip.label"]]), label="Floral inducer", offset = 1.4, size = .5, align=TRUE)+
+  geom_cladelab(node = grep("AT4G20370.1", Fig2a@phylo[["tip.label"]]), label="Floral inducer", offset = 1.4, size = .5, align=TRUE)+
+  xlim_tree(7.5)+
+  theme_tree()+
+  geom_treescale(width = 0.05, fontsize = 3, x=1.5)
+
+tree1
+```
+## Save
+```{r}
+ggsave(paste(here(), "/Results/Fig_2/Fig_2a.png", sep = ""), plot = tree1, width = 12, height = 9, units = "in")
+```
+## Tree - Figure 2b
+```{r}
+tree2 <- ggtree(Fig2b, size = .5, color="grey") +
+  geom_tiplab(size = 3.5, offset = 0.05) +
+  geom_text2(aes(label=round(as.numeric(posterior), 2),
+                 x=branch), size=3, hjust=-.25) +
+  geom_cladelab(node = grep("AT1G71692", Fig2b@phylo[["tip.label"]]), offset=.2, label="AGL12", size = .5, align=TRUE) +
+  xlim_tree(1.15) +
+  theme_tree() +
+  geom_treescale(width = 0.07, fontsize = 3, x=.5)
+
+tree2
+```
+## Save
+```{r}
+ggsave(paste(here(), "/Results/Fig_2/Fig_2b.png", sep = ""), plot = tree2, width = 12, height = 9, units = "in")
+```
+## Add formatting
+
+Add Figure labels and legend for the pdf publication version of the figure.
+```{r}
+composite_tree <- cowplot::plot_grid(tree1, tree2, nrow = 2, labels = c("(a)", "(b)"), 
+                                     label_size = 8, label_x = 0.5, label_y = 0, hjust = -1, vjust = -0.05)
+composite_with_legend <- add_sub(composite_tree, "Figure 2: Phylogeny of PEBP (a) and MADS (b) family proteins in Arabidopsis, wheat, and barley. The support value on each node is the posterior probability. \nThe scale bar denotes the number of nucleotide replacements per site", x = 0, hjust = 0)
+Pub_Fig2 <- ggdraw(composite_with_legend)
+```
+## Save
+```{r}
+ggsave(paste(here(), "/Results/Fig_2/Fig_2.png", sep = ""), plot = Pub_Fig2, width = 12, height = 9, units = "in")
+```
