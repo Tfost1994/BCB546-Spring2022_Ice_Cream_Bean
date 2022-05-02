@@ -78,7 +78,7 @@ Add Figure labels and legend for the pdf publication version of the figure.
 ```{r}
 composite_tree <- cowplot::plot_grid(tree1, tree2, nrow = 2, labels = c("(a)", "(b)"), 
                                      label_size = 8, label_x = 0.5, label_y = 0, hjust = -1, vjust = -0.05)
-composite_with_legend <- add_sub(composite_tree, "Figure 2: Phylogeny of PEBP (a) and MADS (b) family proteins in Arabidopsis, wheat, and barley. The support value on each node is the posterior probability. \nThe scale bar denotes the number of nucleotide replacements per site", x = 0, hjust = 0)
+composite_with_legend <- add_sub(composite_tree, "Figure 2: Phylogeny of PEBP (a) and MADS (b) family proteins in Arabidopsis, wheat, and barley. The support value on each node is the \nposterior probability. The scale bar denotes the number of nucleotide replacements per site", x = 0, hjust = 0)
 Pub_Fig2 <- ggdraw(composite_with_legend)
 ```
 ## Save
