@@ -54,7 +54,7 @@ colfunc <- colorRampPalette(c("firebrick", "mediumblue", "green"))
 # Re-creation of Original Arabidopsis Heat Map
 ```{r}
 bmp(file="../Results/Fig_3/Original_Figure3a.bmp",
-   width=16, height = 10, units = "in", res=500)
+   width=16, height = 10, units = "in", res=250)
 heatmap.2(arabidopsis_matrix,
           dendrogram = "col", #only draw a column dendogram
           breaks = 100, #determines the number of color transitions
@@ -65,10 +65,10 @@ heatmap.2(arabidopsis_matrix,
           cexCol = 0.7, #changes column label font
           lmat = rbind(c(0,3,0),c(2,1,0),c(0,4,0)), #manually placing key objects of figure
           lwid = c(0.05, 0.1, 0.05), #changes dimensions of the array cell widths
-          lhei = c(0.43, 3.5, 0.6), #alter dimensions of array cell heights
+          lhei = c(0.43, 2.5, 0.6), #alter dimensions of array cell heights
           key.title = NA, #turns off key title
           density.info="none", #turns off the trace lines in the key
-          key.par=list(mar=c(2, 0, 4,0) ), #tweaks specific key parameters
+          key.par=list(mar=c(3.2, 0, 4,0) ), #tweaks specific key parameters
 )
 ```
 
@@ -78,7 +78,7 @@ heatmap.2(arabidopsis_matrix,
 colfunc2 <- colorRampPalette(c("blue2", "white", "red2"))
 
 bmp(file="../Results/Fig_3/Ice_Cream_Bean's_Figure3a.bmp",
-   width=16, height = 10, units = "in", res=500)
+   width=16, height = 10, units = "in", res=250)
 heatmap.2(arabidopsis_matrix,
           dendrogram = "col", #only draw a column dendogram
           breaks = 100, #determines the number of color transitions
@@ -89,10 +89,10 @@ heatmap.2(arabidopsis_matrix,
           cexCol = 0.7, #changes column label font
           lmat = rbind(c(0,3,0),c(2,1,0),c(0,4,0)), #manually placing key objects of figure
           lwid = c(0.05, 0.1, 0.05), #changes dimensions of the array cell widths
-          lhei = c(0.43, 3.5, 0.6), #alter dimensions of array cell heights
+          lhei = c(0.43, 2.5, 0.6), #alter dimensions of array cell heights
           key.title = NA, #turns off key title
           density.info="none", #turns off the trace lines in the key
-          key.par=list(mar=c(2, 0, 4,0) ), #tweaks specific key parameters
+          key.par=list(mar=c(3.2, 0, 4,0) ), #tweaks specific key parameters
           key.xtickfun = function() {breaks = pretty(parent.frame()$breaks)          
             breaks = breaks[c(1,length(breaks))]             
             list(at = parent.frame()$scale01(breaks), labels = breaks) #changes the tick marks on key
@@ -125,7 +125,7 @@ wheat_matrix <- wheat_matrix[,2:14]
 # Re-creation of Original Wheat Heat Map
 ```{r}
 bmp(file="../Results/Fig_3/Original_Figure3b.bmp",
-    width=6, height = 4, units = "in", res=500)
+    width=6, height = 4, units = "in", res=250)
 heatmap.2(wheat_matrix,
           dendrogram = "col", #only draw a column dendogram
           breaks = 100, #determines the number of color transitions
@@ -133,20 +133,20 @@ heatmap.2(wheat_matrix,
           margins = c(10,0), #widens margins around plot
           labRow = FALSE, #turns off row labels
           col = colfunc(99), #use the color palette we created above
-          cexCol = 1, #changes column label font
+          cexCol = 0.9, #changes column label font
           lmat = rbind(c(0,3,0),c(2,1,0),c(0,4,0)), #manually placing key objects of figure
           lwid = c(0.05, 0.05, 0.05), #changes dimensions of the array cell widths
-          lhei = c(0.43, 2.6, 0.6), #alter dimensions of array cell heights
+          lhei = c(0.43, 1.5, 0.6), #alter dimensions of array cell heights
           key.title = NA, #turns off key title
           density.info="none", #turns off the trace lines in the key
-          key.par=list(mar=c(2, 0, 2,0) ), #tweaks specific key parameters
+          key.par=list(mar=c(3.2, 0, 1.8,0) ), #tweaks specific key parameters
 )
 ```
 
 # Improved Wheat Heat Map
 ```{r}
 bmp(file="../Results/Fig_3/Ice_Cream_Bean's_Figure3b.bmp",
-    width=6, height = 4, units = "in", res=500)
+    width=6, height = 4, units = "in", res=250)
 heatmap.2(wheat_matrix,
           dendrogram = "col", #only draw a column dendogram
           breaks = 100, #determines the number of color transitions
@@ -154,13 +154,13 @@ heatmap.2(wheat_matrix,
           margins = c(10,0), #widens margins around plot
           labRow = FALSE, #turns off row labels
           col = colfunc2(99), #use the color palette we created above
-          cexCol = 1, #changes column label font
+          cexCol = 0.9, #changes column label font
           lmat = rbind(c(0,3,0),c(2,1,0),c(0,4,0)), #manually placing key objects of figure
           lwid = c(0.05, 0.05, 0.05), #changes dimensions of the array cell widths
-          lhei = c(0.43, 2.6, 0.6), #alter dimensions of array cell heights
+          lhei = c(0.43, 1.5, 0.6), #alter dimensions of array cell heights
           key.title = NA, #turns off key title
           density.info="none", #turns off the trace lines in the key
-          key.par=list(mar=c(2, 0, 2,0) ), #tweaks specific key parameters
+          key.par=list(mar=c(3.2, 0, 1.8,0) ), #tweaks specific key parameters
           key.xtickfun = function() {breaks = pretty(parent.frame()$breaks)          
             breaks = breaks[c(1,length(breaks))]             
             list(at = parent.frame()$scale01(breaks), labels = breaks) #changes the tick marks on key
@@ -193,7 +193,7 @@ barley_matrix <- barley_matrix[,2:16]
 # Re-creation of Original Wheat Heat Map
 ```{r}
 bmp(file="../Results/Fig_3/Original_Figure3c.bmp",
-    width=6, height = 4, units = "in", res=500)
+    width=6, height = 4, units = "in", res=250)
 heatmap.2(barley_matrix,
           dendrogram = "col", #only draw a column dendogram
           breaks = 100, #determines the number of color transitions
@@ -201,20 +201,20 @@ heatmap.2(barley_matrix,
           margins = c(10,0), #widens margins around plot
           labRow = FALSE, #turns off row labels
           col = colfunc(99), #use the color palette we created above
-          cexCol = 1, #changes column label font
+          cexCol = 0.9, #changes column label font
           key.title = NA, #turns off key title
           density.info="none", #turns off the trace lines in the key          
           lmat = rbind(c(0,3,0),c(2,1,0),c(0,4,0)), #manually placing key objects of figure
           lwid = c(0.05, 0.05, 0.05), #changes dimensions of the array cell widths
-          lhei = c(0.43, 2.6, 0.6), #alter dimensions of array cell heights
-          key.par=list(mar=c(2, 0, 2,0) ), #tweaks specific key parameters
+          lhei = c(0.43, 1.5, 0.6), #alter dimensions of array cell heights
+          key.par=list(mar=c(3.2, 0, 1.8,0) ), #tweaks specific key parameters
 )
 ```
 
 # Improved Barley Heat Map
 ```{r}
 bmp(file="../Results/Fig_3/Ice_Cream_Bean's_Figure3c.bmp",
-    width=6, height = 4, units = "in", res=500)
+    width=6, height = 4, units = "in", res=250)
 heatmap.2(barley_matrix,
           dendrogram = "col", #only draw a column dendogram
           breaks = 100, #determines the number of color transitions
@@ -222,13 +222,13 @@ heatmap.2(barley_matrix,
           margins = c(10,0), #widens margins around plot
           labRow = FALSE, #turns off row labels
           col = colfunc2(99), #use the color palette we created above
-          cexCol = 1, #changes column label font
+          cexCol = 0.9, #changes column label font
           key.title = NA, #turns off key title
           density.info="none", #turns off the trace lines in the key          
           lmat = rbind(c(0,3,0),c(2,1,0),c(0,4,0)), #manually placing key objects of figure
           lwid = c(0.05, 0.05, 0.05), #changes dimensions of the array cell widths
-          lhei = c(0.43, 2.6, 0.6), #alter dimensions of array cell heights
-          key.par=list(mar=c(2, 0, 1.8,0) ), #tweaks specific key parameters
+          lhei = c(0.43, 1.5, 0.6), #alter dimensions of array cell heights
+          key.par=list(mar=c(3.2, 0, 1.8,0) ), #tweaks specific key parameters
           key.xtickfun = function() {breaks = pretty(parent.frame()$breaks)          
             breaks = breaks[c(1,length(breaks))]             
             list(at = parent.frame()$scale01(breaks), labels = breaks) #changes the tick marks on key
