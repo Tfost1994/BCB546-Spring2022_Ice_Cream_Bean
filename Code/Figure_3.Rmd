@@ -177,6 +177,9 @@ barley_expression_v <- read_excel("../Peng_Data/Supplemental file 5.xls", sheet 
 #change 1st column name to 'Gene'
 colnames(barley_expression_v)[1] <- "Gene"
 
+#correct spelling error
+names(barley_expression_v)[names(barley_expression_v) == 'germinating seed, coleoptyle'] <- 'Germinating Seed, Coleoptile'
+
 #Capitalize the first character
 barley_expression_v <- barley_expression_v %>% rename_with(str_to_title)
 
