@@ -10,11 +10,16 @@ library(readxl)
 library(dplyr)
 library(stringr)
 library(kableExtra)
-library(knitr)
+# library(knitr)
 library(tidyr)
 library(here)
 ```
-
+If tables need to be saved as .png files uncomment & run below chunk. If viewing tables as .html is acceptable below chunk can be skipped.
+```{r}
+# library(webshot)
+# library(magick)
+# webshot::install_phantomjs()
+```
 The CRAN version of kableExtra has a bug in the collapse_rows() function. For this function to work kableExtra must be updated from its github source
 ```{r}
 ###There is a bug in a function in the kableExtra package which has not been updated into CRAN yet; 
@@ -153,7 +158,13 @@ chromosomes and seven known functional group in Arabidopsis.") %>%
 
 tableS1_kable
 save_kable(tableS1_kable, paste(here(),"/Results/Supp_Table_1/Supp_Table_1.html", sep=""))
+
 ```
 
+## To save tables as .png files uncomment below chunk and uncomment lines 19 & 20
+```{r}
+# save_kable(table1_kable, paste(here(),"/Results/Table_1/Table_1.png", sep = ""), zoom =5, vwidth=400)
+# save_kable(tableS1_kable, paste(here(),"/Results/Supp_Table_1/Supp_Table_1.png", sep=""), zoom = 5, vwidth=500)
+```
 
 
