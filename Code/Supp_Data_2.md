@@ -17,9 +17,9 @@ Create directories to organize data
 ```
 mkdir -p ./Results/Supp_Data_2/BLAST/TAdb ./Results/Supp_Data_2/BLAST/HVdb ./Results/Supp_Data_2/BLAST/ATdb ./Results/Supp_Data_2/BLAST/Output
 ```
-The TAIR [bulk data retrieval tool](https://www.arabidopsis.org/tools/bulk/sequences/index.jsp) was to obtain gene sequences listed in Supplemental Data 1. A method other than using the GUI website interface was not apparent. No Arabidopsis genome version was listed in the paper so the Araport11 coding sequences data set was used. One sequence per locus query option was also used and data were output to a fasta file and saved as `Arabidopsis_Flowering_Protein_Seq.fasta` at /BCB546-Spring2022_Ice_Cream_Bean/data_files. The 14 miRNA locus IDs were not found using this search.
+The TAIR [bulk data retrieval tool](https://www.arabidopsis.org/tools/bulk/sequences/index.jsp) was to obtain gene sequences listed in Supplemental Data 1. A method other than using the GUI website interface was not apparent. No Arabidopsis genome version was listed in the paper so the Araport11 coding sequences data set was used. One sequence per locus query option was also used and data were output to a fasta file and saved as `Arabidopsis_Flowering_Protein_Seq.fasta` at /BCB546-Spring2022_Ice_Cream_Bean/Results/Data_Files. The 14 miRNA locus IDs were not found using this search.
 ```
-cp ./data_files/Arabidopsis_Flowering_Protein_Seq.fasta  ./Results/Supp_Data_2/BLAST/
+cp ./Results/Data_Files/Arabidopsis_Flowering_Protein_Seq.fasta  ./Results/Supp_Data_2/BLAST/
 ```
 The data based used in the reciprocal BLAST searches were obtained from Ensembl. Release 26 was used as in Peng et al. (2015). URL information can be obtained from [Ensembl Plant FTP](http://ftp.ensemblgenomes.org/pub/plants/). Rsync scripting information was obtained from [Ensembl Plant Info](https://plants.ensembl.org/info/data/ftp/rsync.html)
 ```
@@ -234,4 +234,4 @@ cp ./Output/named_groups_${i}_AT.txt ./named_groups_${i}_scos.txt
 ./common_scripts/ExtractSeq.sh -o orthogroups ./Output/named_groups_${i}_AT.txt  goodProteins.fasta
 done
 ```
-Fasta files for each orthogroup are wrtten to the orthogroup directory.
+Fasta files for each orthogroup are written to the orthogroup directory.
