@@ -1,20 +1,34 @@
 ---
 title: "figures 4 and S3"
 author: "Elizabeth McMurchie"
-date: '2022-04-13'
+date: '2022-05-03'
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-# Introduction
+# Description
 
-In this code, I wrangled the data from `Supplemental file 5.xls`, which contains expression values of various genes in different tissues in wheat and barley, and used this code to replicated Figures 4 and S3 from Peng et al. 2015.
+This code includes the steps taken to wrangle the data from `Supplemental file 5.xls`, which contains expression values of various genes in different tissues in wheat and barley, and use this code to replicate Figures 4 and S3 from Peng et al. 2015.
 
-- Elizabeth McMurchie
+# Author
 
-# Read in necessary libraries
+This code was written by Elizabeth McMurchie.
+
+# Date
+
+This code was last modified on May 3, 2022.
+
+# Dependencies
+
+The `tidyverse`, `readxl`, `dplyr`, `data.table`, `janitor`, and `tibble` R libraries are required to run this code.
+
+# References
+
+This code references the [R Data Skills for Bioinformatics](https://eeob-biodata.github.io/EEOB546-R/index.html) tutorials, as well as additional resources that are listed in the sections in which they were used. 
+
+# Load in required libraries
 ```{r}
 library(tidyverse)
 library(readxl)
@@ -68,6 +82,13 @@ Above, we imported the data pages for wheat and barley, cutting out the merged c
 
 Since the barley page had tissue type names that didn't exactly match those of the wheat page, we had to change some of these names and eliminate two columns that weren't measured in the wheat page. Only then could we combine the wheat and barley data frames. However, we still needed to do a `pivot_longer` on all the columns except the gene column, moving the expression values into a new column, "expression" and the tissue types into another new column, "tissue". We then ensured that these values were set as the appropriate data types (numeric for expression and factor for tissue).
 
+I referenced the following resources to write this part of the code: 
+[How to remove the row names or column names from a matrix in R?](https://www.tutorialspoint.com/how-to-remove-the-row-names-or-column-names-from-a-matrix-in-r): To remove the first row (header) from the dataset.
+[Replace all the matches of a Pattern from a String in R Programming – gsub() Function](https://www.geeksforgeeks.org/replace-all-the-matches-of-a-pattern-from-a-string-in-r-programming-gsub-function/#:~:text=gsub()%20function%20in%20R,be%20returned%20as%20it%20is.): For pattern replacement, including spaces, dashes, and commas.
+[as.data.frame: Coerce to a Data Frame](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/as.data.frame): To make ensure that the data were in dataframe format. 
+[How to Use rbind in R (With Examples)](https://www.statology.org/rbind-in-r/): To combine dataframes using `rbind`.
+
+
 # Figure 4a
 ```{r}
 grass4a <- grass %>%
@@ -100,6 +121,14 @@ To make figure 4a, we first needed to filter only the genes used in figure 4a, "
 Next we plotted these data, making a line graph with tissue type on the x axis and Log2 expression value on the y axis. We gave each gene its own color and point shape (keeping them consistent with the colors and point shapes in the paper) and changed the labels on the x axis back to those that were given in the paper (commas, spaces, and dashes included). To match the figure in the paper, we also needed to manually set the y-axis scale (both limits, here set to 4-10, and breaks, set at each integer) and elements of the theme, including grid lines and the angle of the text.
 
 Finally, we saved the figure as a PDF and PNG. 
+
+I referenced the following resources to write this part of the code: 
+[Changing the order of levels of a factor](http://www.cookbook-r.com/Manipulating_data/Changing_the_order_of_levels_of_a_factor/): To change the order of the tissue types in the figure. 
+[The scale_x_discrete Function in R](https://www.delftstack.com/howto/r/scale_x_discrete-in-r/): To change the x-axis labels.
+[Modify components of a theme](https://ggplot2.tidyverse.org/reference/theme.html): To change the components of the theme related to the grid.
+[HTML Color Codes](https://htmlcolorcodes.com/): To adjust the colors used in the figure.
+[R plot pch symbols : The different point shapes available in R](http://www.sthda.com/english/wiki/r-plot-pch-symbols-the-different-point-shapes-available-in-r): To pick the point styles used in the figure.
+[R ggplot2 scale_y_continuous: Combining breaks & limits](https://stackoverflow.com/questions/38313204/r-ggplot2-scale-y-continuous-combining-breaks-limits): To set y-axis breaks and scale. 
 
 # Figure 4b
 ```{r}
