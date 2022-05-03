@@ -14,8 +14,8 @@ To transform the data into a useable format for MSA:
 `All_Species.Seq.fasta`
 
 To create specific sequences for Fig1a and Fig1b:
-`Fig1a_Gene_List.txt` *created* `Fig1a_Seq.fasta`
-`Fig1b_Gene_List.txt` *created* `Fig1b_Seq.fasta`
+`Fig1a_Gene_List.txt` *created* `Fig1a_Seq.fasta` *reordered manually* `Fig_1a_Seq_Reorder.fasta`
+`Fig1b_Gene_List.txt` *created* `Fig1b_Seq.fasta` *reordered manually* `Fig_1b_Seq_Reorder.fasta`
 
 Alignment files from Clustalx v2.0:
 `Fig1a_Seq.aln`
