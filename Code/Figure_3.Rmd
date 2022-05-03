@@ -190,7 +190,7 @@ row.names(barley_matrix) <- barley_expression_v$Gene
 barley_matrix <- barley_matrix[,2:16]
 ```
 
-# Re-creation of Original Wheat Heat Map
+# Re-creation of Original Barley Heat Map
 ```{r}
 bmp(file="../Results/Fig_3/Original_Figure3c.bmp",
     width=6, height = 4, units = "in", res=250)
