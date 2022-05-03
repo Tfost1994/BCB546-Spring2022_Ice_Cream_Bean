@@ -13,5 +13,6 @@ Files generated in this folder originate from code files
 
 ## Object descriptions
 
-`Table_1.html`: Replication of Table 1 from Peng et al. (2015); stored as html
+`Table_1.html`: Replication of Table 1 from Peng et al. (2015); stored as html  
+`Table_1.png`: Replication of Table 1 from Peng et al. (2015); stored as png  
 `README.md`: Current file
