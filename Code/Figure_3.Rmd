@@ -177,6 +177,9 @@ barley_expression_v <- read_excel("../Peng_Data/Supplemental file 5.xls", sheet 
 #change 1st column name to 'Gene'
 colnames(barley_expression_v)[1] <- "Gene"
 
+#correct spelling error
+names(barley_expression_v)[names(barley_expression_v) == 'germinating seed, coleoptyle'] <- 'Germinating Seed, Coleoptile'
+
 #Capitalize the first character
 barley_expression_v <- barley_expression_v %>% rename_with(str_to_title)
 
@@ -190,7 +193,7 @@ row.names(barley_matrix) <- barley_expression_v$Gene
 barley_matrix <- barley_matrix[,2:16]
 ```
 
-# Re-creation of Original Wheat Heat Map
+# Re-creation of Original Barley Heat Map
 ```{r}
 bmp(file="../Results/Fig_3/Original_Figure3c.bmp",
     width=6, height = 4, units = "in", res=250)
