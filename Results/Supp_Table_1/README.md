@@ -13,5 +13,6 @@ Files generated in this folder originate from code files
 
 ## Object descriptions
 
-`Supp_Table_1.html`: Replication of Supplemental Table S1 from Peng et al. (2015); stored as html
+`Supp_Table_1.html`: Replication of Supplemental Table S1 from Peng et al. (2015); stored as html  
+`Supp_Table_1.png` : Replication of Supplemental Table S1 from Peng et al. (2015); stored as png  
 `README.md`: Current file

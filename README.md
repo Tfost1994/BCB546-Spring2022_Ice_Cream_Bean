@@ -32,7 +32,7 @@ Subdirectories:
 
 `Peng_Data/`: Directory containing original Supplemental Files from Peng et al. (2015)  
 
-`Peng_et_al_2015.md`: Markdown describing the origional work and replicative work done for the BCB 546 Final Project assignment
+`Peng_et_al_2015.md`: Markdown describing the original work and replicative work done for the BCB 546 Final Project assignment
 
 `Peng_et_al_2015_GW_Flowering.pdf`: Copy of Peng et al. (2015)
 
