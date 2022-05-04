@@ -1,8 +1,12 @@
-## Table 2 README file
+Figure 3 Results
+This directory contains the heat map plots from Figure 3 of Peng et al. 2015, as re-created by Tyler Foster
 
-##Table 2 README
-This directory includes Table 2 replication from Peng et. al by Sarah Minkler.
+Contents of this directory
+This directory contains:
 
-##Contents of directory
-1. This directory includes the txt.file output from Python. 
-2. Also included is the PNG.file from R with the updated Table 2.
+Ice_Cream_Bean's_Figure3a: Figure 3a plot saved as BMP; improved figure for color blind readers
+Ice_Cream_Bean's_Figure3b: Figure 3b plot saved as BMP; improved figure for color blind readers
+Ice_Cream_Bean's_Figure3c: Figure 3c plot saved as BMP; improved figure for color blind readers
+Original_Figure3a: Figure 3a plot saved as BMP; closely matches author's figure
+Original_Figure3b: Figure 3b plot saved as BMP; closely matches author's figure
+Original_Figure3c: Figure 3b plot saved as BMP; closely matches author's figure
