@@ -8,7 +8,7 @@ Authors: Fred Y. Peng,1 Zhiqiu Hu,2 and Rong-Cai Yang, 2015.
 
 Published in International Journal of Plant Genomics.
 
-The authors examined flowering genes two different plant species; wheat (Triticum aestivum L.) and barley (Hordeum vulgare L.)  Because the genomes of these two species are large and complicated, identification of specific flowering genes was difficult. In order to predict these  genes, the authors used known flowering genes from Arabidopsis (Arabidopsis thaliana). In total, they identified 900 and 275 flowering genes in wheat and barley. These putative genes were clustered into 144 ortholog groups and showed that orthologous gene pairs in three flowering gene families; PEBP, MADS, and BBX. Now that these flowering genes have been identified, they can be used in breeding to induce early flowering wheat and barley, increasing grain yield and quality in these two species.
+The authors examined flowering genes two different plant species; wheat (*Triticum aestivum* L.) and barley (*Hordeum vulgare* L.)  Because the genomes of these two species are large and complicated, identification of specific flowering genes was difficult. In order to predict these  genes, the authors used known flowering genes from Arabidopsis (*Arabidopsis thaliana* (L.) Heynh.). In total, they identified 900 and 275 flowering genes in wheat and barley. These putative genes were clustered into 144 ortholog groups and showed that orthologous gene pairs in three flowering gene families; PEBP, MADS, and BBX. Now that these flowering genes have been identified, they can be used in breeding to induce early flowering wheat and barley, increasing grain yield and quality in these two species.
 
 # Figure Recreation
 ## Table 1
@@ -42,7 +42,7 @@ To try to make the tables match more closely to the authors', R was used. Using 
 ## Figure 1
 *Heather Chamberlain-Irwin*
 
-  Figure one is a multiple sequence alignment of the OG5_178217 orthogroup where Figure 1a is conserved MADS-box domain and K-box region. Blue is the MADS-box domain and red is K-box region. Figure 1b is the PEBP family proteins. FASTA files for each of the genes within the alignment for arabidopsis, wheat, and barley were retrieved from the repository using Git Bash. In figure 1a, it was unclear which iteration of the MLOC gene was used, so all three were included. In Figure 1b,Traes_3B_2A454DB62 was unavailable from all major databases.
+  Figure one is a multiple sequence alignment of the OG5_178217 orthogroup where Figure 1a is conserved MADS-box domain and K-box region. Blue is the MADS-box domain and red is K-box region. Figure 1b is the PEBP family proteins. FASTA files for each of the genes within the alignment for Arabidopsis, wheat, and barley were retrieved from the repository using Git Bash. In figure 1a, it was unclear which iteration of the MLOC gene was used, so all three were included. In Figure 1b,Traes_3B_2A454DB62 was unavailable from all major databases.
 
   To create figure specific files using BioPython, a text file of gene lists for both figures were created. Then, all the separate species files were compiled into a single file as a dictionary. The gene lists iterated over the species sequence and pulled out Fig_1a and Fig_2b sequences into seaprate files. The authors compiled their sequences from targeting orthologous flowering genes using BLAST, OrthoMCL-DB, and IntProScan 5, but that would have produced more data than needed or could computationally handle, so just the genes from the figure were compiled.  
 
