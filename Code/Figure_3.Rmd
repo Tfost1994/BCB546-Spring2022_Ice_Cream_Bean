@@ -13,6 +13,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This R markdown file is written and documented by Tyler Foster. The aim of this coding file is to convert gene expression vales from Peng_et_al_2015 found in "Supplemental file 5.xls" to create a heat map for each of the following species: Arabidopsis, Wheat and Barley.
 
+# Resources
+The following links were used for understanding how to conduct the analysis needed in this file:
+1. https://stackoverflow.com/questions/15351575/moving-color-key-in-r-heatmap-2-function-of-gplots-package
+2. https://www.rdocumentation.org/packages/gplots/versions/3.1.1/topics/heatmap.2
+3. https://stackoverflow.com/questions/55585166/difficulty-positioning-heatmap-2-components
 
 # Dependencies
 ```{r}
