@@ -1,6 +1,6 @@
 # BCB546-Spring 2022
 
-## Author-year markdown file for Ice Cream Bean group (Karlene Negus, Sarah Minkler, Tyler Foster, Heather Chamberlain-Irwin, and Elizabeth McMurchie).
+## Author-year markdown file for Ice Cream Bean group: Karlene Negus, Sarah Minkler, Tyler Foster, Heather Chamberlain-Irwin, and Elizabeth McMurchie
 
 Title: _Genome-Wide Comparative Analysis of Flowering-Related Genes in Arabidopsis, Wheat, and Barley_
 
@@ -13,14 +13,17 @@ The authors examined flowering genes two different plant species; wheat (Triticu
 # Figure Recreation
 ## Table 1
 *Karlene Negus*
+
   Table 1 summarizes the distribution of *Arabidopsis thaliana* flowering genes across the 5 chromosomes and across several functional groups. Table 1 was replicated using the data provided in the `Supplemental file 1.xls` file provided with the original Peng et al. (2015) publication. Chromosome locations were extracted from the gene names in R and functional group labels were provided in the file. The numbers provided in the original table did not perfectly match the numbers in the replicated table for the AT5-Photoperiod intersection and AT5-Flower development intersection. The data provided in the supplemental file contradicts the published table. It is unclear which version is correct.
 
 ## Table 2
 *Sarah Minkler*
+
   Table 2 presented the new annotation percentages of characterized and uncharacterized flowering related genes of barley and wheat based on BLAST hits of Arabidopsis flowering genes. To replicate this data, Supplementary file 3 was used and sorted to view 'uncharacterized' and 'characterized' proteins. This was done using the group.by function and sorting for 'Unnamed: 1' column in python. A total of 866 uncharacterized wheat proteins were found along with 34 characterized proteins. Their percentages were calculated based on the total amount of proteins for each species. For Barley, data was also collected from Supplementary file 3 and sorted for 'uncharacterized' and 'characterized' proteins in the same way as mentioned above. A total of 259 'uncharacterized' proteins were found and '16' characterized proteins were calculated. These results agree with the authors findings for Table 2.
 
 ## Table 3
 *Sarah Minkler*
+
   Table 3 examined the structural characteristics of flowering genes in Arabidopsis, wheat and barley. Multiple characteristics were explored, including the number of transcripts per gene, gene length, exons per gene, exon size, intron size, and protein length. All of these structural characteristics were replicated in using python and Supplemental file 4. First, flowering genes from Arabidopsis, wheat and barley were sorted in python and sorted using the first column to find the number of transcripts per gene (Unnamed:1 column). For all three species, the replicated data agreed with author data. Next, sorted exon data was replicated. The file was sorted according to average number of exons (Unnamed: 3 column). Exon size was calculated by first creating a copy of the file and dropping the header to allow the data to be changed to numeric values using pandas. Then the average, minimum, and maximum values were calculated. The data gathered for this characteristic agreed with the authors. For intron size, the same analysis was carried out for average and maximum values.
 
   In order to calculate minimum values, the row had to be sorted to account for genes that contained no introns (to exclude them from the range). The data for intron size for all three also agreed with the authors. For gene length, a new column was made for average number of exon multipled by exon length for each gene present(titled exon_total). Then, another new column was created to calculate gene length as a whole. The second new column, titled exon_intron, was the addition of exon_total column + average number of introns to obtain total gene length. The average, minimum, and maximum for each species was calculated. The results from these calculations did not match the authors. In the manuscript, there was not an explanation as to how this value was calculated. Protein length was calculated by taking the exon_total column and calculating the average, minimum, and maximum values. Again, this number differed from the authors' values. The differences in these last two characteristics could be due to the fact that some data points were excluded in the authors' results, but this was not explainined in the manuscript. Supplemental file 4 contained more data points than was listed on the table above each species.
@@ -33,10 +36,12 @@ To try to make the tables match more closely to the authors', R was used. Using 
 
 ## Supplemental Table S1
 *Karlene Negus*
+
   Table S1 is nearly identical to Table 1, but it instead summarizes 101 putative *Arabidopsis thaliana* flowering genes identified from reciprocal BLAST.
 
 ## Figure 1
 *Heather Chamberlain-Irwin*
+
   Figure one is a multiple sequence alignment of the OG5_178217 orthogroup where Figure 1a is conserved MADS-box domain and K-box region. Blue is the MADS-box domain and red is K-box region. Figure 1b is the PEBP family proteins. FASTA files for each of the genes within the alignment for arabidopsis, wheat, and barley were retrieved from the repository using Git Bash. In figure 1a, it was unclear which iteration of the MLOC gene was used, so all three were included. In Figure 1b,Traes_3B_2A454DB62 was unavailable from all major databases.
 
   To create figure specific files using BioPython, a text file of gene lists for both figures were created. Then, all the separate species files were compiled into a single file as a dictionary. The gene lists iterated over the species sequence and pulled out Fig_1a and Fig_2b sequences into seaprate files. The authors compiled their sequences from targeting orthologous flowering genes using BLAST, OrthoMCL-DB, and IntProScan 5, but that would have produced more data than needed or could computationally handle, so just the genes from the figure were compiled.  
@@ -45,10 +50,12 @@ To try to make the tables match more closely to the authors', R was used. Using 
 
 ## Figure 2
 *Karlene Negus*
+
   Figure 2 builds on the multiple sequence alignment (MSA) generated for Figure 1 and creates gene phylogenic trees for a single ortholog group containing MADS and PEBP family proteins. MSA data was analyzed using programs associated with BEAST v1.8.2 (beauti, beast, treeannotator) similar to the publication. All settings were left as defaults due to limited description in the Peng et al. (2015) methods section. Tree plots were generated using the ggTree package in R which deviated from the original publications use of GUI-based program FigTree. This deviation allowed the figures to be remade in a more replicable way and a very similar format was still achieved for the trees. The authors did not include sufficient details to include the out-group genes present in the original gene phylogeny in the replicate. It is unclear from which species annotation these sequences were selected and at what stage the out-group genes were included since these genes are absent from the Figure 1 MSA. Between the original and replicate trees overall structure was somewhat well preserved as most of the closely branched gene pairs maintained similar relationships. However (especially in Figure 2b), ambiguity regarding which gene version was used in the original resulted in all versions being included in the tree. As expected those gene versions then clustered more closely together instead of the previous positioning within the tree.  
 
 ## Figure 3
 *Tyler Foster*
+
   Figure 3 is a collection of heat maps generated from the expression of flowering genes in different tissues/developmental stages. Figure 3a depicts the expression values from 63 tissue types studied in Arabidoposis. Figure 3b displays the expression values from 13 tissue types in Wheat. Finally, Figure 3c shows the expression values from 15 tissue types in Barley.
 
   To create such figures, data values from the Supplemental file 5 dataframe were imported into R to create a datamatrix. Data values must be converted from dataframe to datamatrix as the function used to create the heatmaps, heatmap.2 found in the gplots package, uses values from a datamatrix. In addition, column names (tissue types) were adjusted by capitalization to more closely match the original publication. A color function that scales from "green to red" was created to match the color scheme the author's used in their publication. The most tedious process for creating these heatmaps was the placement of the key. Normally, heatmap.2 places the key for the heatmap in the top-left hand corner of the figure. Keep in mind, when wanting to change the size and move the key to below the figure, one must also manually change the size/configuration of the dendograms, x axis text and array of cells.  
@@ -59,6 +66,7 @@ To try to make the tables match more closely to the authors', R was used. Using 
 
 ## Figure 4
 *Elizabeth McMurchie*
+
 Figure four is a series of line graphs displaying the expression profiles in major ortholog groups in three gene families (PEBP, MADS-box, and B-box or BBX) in tissues representing different stages of development in wheat and barley. Figure 4a displays expression profiles for PEBP OG5_158796, 4b for PEBP OG5_146543, 4c for MADS OG5_178217, 4d for MADS OG5_144912, 4e for BBX OG5_178368, and 4f for OG5_170758. Tissues shown on the figures include coleoptile, root, and embryo of a germinating seed, seedling root, crown, and leaf, immature inflorescence, floral bracts, pistil, and anthers before anthesis, caryopsis 3-5 days after pollination (abbreviated as DAP), and embryo and endosperm 22 days after pollination.
 
 The data for figure four were obtained from Supplemental file 5 and imported to R, with the R packages tidyverse, readxl, dplyr, data.table, janitor, and tibble used for processing. To process the data, the pages for wheat and barley expression profiles were imported separately. The header row, which included a large merged set of columns, was removed. Spaces and dashes in column labels were replaced with an underscore, while commas were removed entirely. The data tables were set as dataframes with the row names set as the header, with a column name added for genes. For the barley table, a misspelling in the word "coleoptile" was corrected, and "germinating_seed_radicle" and "5_DAP_caryopsis" changed to "germinating_seed_root" and "3_5_DAP_caryopsis", respectively to maintain consistency between tables. The columns for 10 and 16 days after pollintation caryopsis were removed from barley, as well, as these values were not recorded for wheat and not graphed. The barley and wheat tables were then bound together and a `pivot_longer` applied to all columns except the gene column to make a "tissue" and a "gene" column, with tissue set as factors and expression as numeric.
@@ -67,10 +75,12 @@ For each graph in figure four, the appropriate genes were filtered from the comb
 
 ## Supplemental Figure S3
 *Elizabeth McMurchie*
+
 Supplemental figure three is very similar to, and essentially a continuation of, figure four, depicting additional expression values for ortholog groups in the gene families PEBP, MADS-box, and B-box (also abbreviated as BBX). Figures S3a and b depict PEBP family ortholog groups OG5_127642 and OG5_163093, respectively; figures S3c and d show MADS-box ortholog groups OG5_144912, OG5_177438, OG5_135817, and OG5_190130, respectively, and figures S3g and h show BBX family ortholog groups OG5_139246 and OG5_156319, respectively.
 
 The same processed wheat and barley gene expression data that were used to make figure four were used again here to make supplemental figure three. A few differences were seen between the original figure four and supplemental figure three, including undashed grid lines in supplemental figure three, a key placed on the right side of the graph, and angled x-axis text. In a few examples, the grid lines also skip some numbers. In the figures replicated here, the grid lines were placed on every integer to facilitate reading of the graphs and the x-axis text was left at a 90-degree angle to make reduce width of the graphs. Additionally, in graphs with a large number of genes, such as supplemental figure three e, point shapes were added where there were none originally for some genes, to increase accessibility for readers who might have difficulty distinguishing between colors.
 
 ## Supplemental Data 2
 *Karlene Negus*
+
   Supplemental Data 2 replicates the ortholog groups generated in Supplemental File 2 provided in the original publication. Flowering gene names listed in Supplemental File 1 were used as search criteria on TAIR GUI and protein sequences were downloaded from the website. These sequences were used as BLAST criteria against Ensembl Plant (release 26) protein annotations for *Triticum aestivum* and *Hordeum vulgare*. Wheat and barley genes identified in the first BLAST result were used as the search criteria for a second reciprocal BLAST search against the *Arabidopsis thaliana* protein annotation. The top 3 results from the reciprocal BLAST were referenced against the results of the first BLAST and if identical genes were identified in each the pair was retained for ortholog grouping. Ortholog grouping was performed using OrthoMCL. Ortholog grouping was performed following authors' description and using the tutorial available at [bioinformaticsworkbook.org](https://bioinformaticsworkbook.org/phylogenetics/00-finding-orthologs-uisng-orthoMCL.html#gsc.tab=0). Ortholog groups created in this replication loosely match results from the publication with many orthologs pairs matching between both results. Overall, replication groups were contained fewer *A. thaliana* in size compared to original groups. This additionally resulted in some differences in which groups barley and wheat genes clustered into.   
