@@ -1,4 +1,4 @@
-## Table 2 Markdown
+## Table 2 README
 
 This directory includes Table 2 replication from Peng et. al by Sarah Minkler. 
 
