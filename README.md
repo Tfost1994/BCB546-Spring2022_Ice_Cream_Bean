@@ -36,4 +36,6 @@ Subdirectories:
 
 `Peng_et_al_2015_GW_Flowering.pdf`: Copy of Peng et al. (2015)
 
+`BCB546_Spring2022 Final Presentation.pdf`: PDF of Team Ice Cream Bean's final presentation on the replication of Peng et al. 2015
+
 `README.md`: The current file
