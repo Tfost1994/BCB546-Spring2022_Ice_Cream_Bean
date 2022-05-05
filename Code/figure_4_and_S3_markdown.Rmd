@@ -22,7 +22,7 @@ This code was last modified on May 3, 2022.
 
 # Dependencies
 
-The `tidyverse`, `readxl`, `dplyr`, `data.table`, `janitor`, and `tibble` R libraries are required to run this code.
+The `tidyverse`, `readxl`, `dplyr`, `data.table`, `janitor`, and `tibble` R libraries are required to run this code, which was written using R version 4.1.2 (2021-11-01), "Bird Hippie".
 
 # References
 
